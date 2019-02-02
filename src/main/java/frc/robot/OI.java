@@ -60,8 +60,8 @@ public class OI {
     Button grabBall = new JoystickButton(driveStick, RobotMap.grabButton);
     Button dropElevator = new JoystickButton(driveStick, RobotMap.dropButton);
     Button liftElevator = new JoystickButton(driveStick, RobotMap.liftButton);
-    Button climb = new JoystickButton(driveStick, RobotMap.climbButton);
-    Button reverseClimb = new JoystickButton(driveStick, RobotMap.reverseClimbButton);
+    Button climb = new JoystickButton(driveStick, RobotMap.climberButton);
+    Button reverseClimb = new JoystickButton(driveStick, RobotMap.reverseClimberButton);
 
     grabBall.whileActive(new Grab());
     dropElevator.whileActive(new MoveElevator(RobotMap.elevatorSpeedDown));
