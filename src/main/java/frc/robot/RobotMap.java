@@ -29,7 +29,7 @@ public class RobotMap {
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
 
-  public static int armMotor = 1;
+  
   
   
   //Value for WPI_VictorSPX
@@ -55,6 +55,8 @@ public class RobotMap {
   public static int grabButton = 0;
   public static int liftButton = 0;
   public static int dropButton = 0;
+  public static int armUpButton = 0;
+  public static int armDownButton = 0;
 
   //Drivebase Motors
   public static int frontLeft = 1;
@@ -66,4 +68,6 @@ public class RobotMap {
   public static int grabMotor = 0;
   public static double grabSpeed = 0.5;
 
+  //Arm
+  public static int armMotor = 1;
 }
