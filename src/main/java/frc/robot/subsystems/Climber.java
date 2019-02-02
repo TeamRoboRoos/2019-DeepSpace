@@ -8,9 +8,10 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
@@ -18,13 +19,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Climber extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private WPI_VictorSPX climbMotor; 
+  private WPI_TalonSRX climbMotor; 
 
   public Climber() {
-    climbMotor = new WPI_VictorSPX(0);
+    climbMotor = new WPI_TalonSRX(RobotMap.climbExtensionMotor);
   }
-
-
 
   @Override
   public void initDefaultCommand() {
@@ -32,9 +31,9 @@ public class Climber extends Subsystem {
     // setDefaultCommand(new MySpecialCommand()); 
     
   }
+
   public void controlClimber(double speed)  {
     climbMotor.set(ControlMode.PercentOutput, speed);
 
   }
-  
 }

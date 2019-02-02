@@ -10,9 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.Grab;
-import frc.robot.commands.MoveElevator;
-import frc.robot.commands.RobotClimb;
+import frc.robot.commands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -46,28 +44,41 @@ public class OI {
   // Start the command when the button is released and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
-  private Joystick driveStick;
+
+  private Joystick driveStick, opStick;
 
   private Button grabBall;
-  private Button liftElevator;
-  private Button dropElevator;
-  private Button climb;
-  private Button reverseClimb;
+  private Button liftElevator, dropElevator;
+  private Button climb, reverseClimb;
+  private Button armUp, armDown;
 
   public OI() {
-    Joystick driveStick = new Joystick(RobotMap.driveStick);
+    driveStick = new Joystick(RobotMap.driveStick);
 
-    Button grabBall = new JoystickButton(driveStick, RobotMap.grabButton);
-    Button dropElevator = new JoystickButton(driveStick, RobotMap.dropButton);
-    Button liftElevator = new JoystickButton(driveStick, RobotMap.liftButton);
-    Button climb = new JoystickButton(driveStick, RobotMap.climberButton);
-    Button reverseClimb = new JoystickButton(driveStick, RobotMap.reverseClimberButton);
 
-    grabBall.whileActive(new Grab());
-    dropElevator.whileActive(new MoveElevator(RobotMap.elevatorSpeedDown));
-    liftElevator.whileActive(new MoveElevator(RobotMap.elevatorSpeedUp));
-    climb.whileActive(new RobotClimb(RobotMap.climberSpeed));
-    reverseClimb.whileActive(new RobotClimb(RobotMap.reverseClimberSpeed));
+    grabBall = new JoystickButton(driveStick, RobotMap.grabButton);
+    grabBall.whileHeld(new Grab());
+
+
+    dropElevator = new JoystickButton(driveStick, RobotMap.dropButton);
+    dropElevator.whileHeld(new MoveElevator(RobotMap.elevatorDownSpeed));
+
+    liftElevator = new JoystickButton(driveStick, RobotMap.liftButton);
+    liftElevator.whileHeld(new MoveElevator(RobotMap.elevatorUpSpeen));
+
+
+    climb = new JoystickButton(driveStick, RobotMap.climbUpButton);
+    climb.whileHeld(new RobotClimb(RobotMap.climbUpSpeed));
+
+    reverseClimb = new JoystickButton(driveStick, RobotMap.climbDownButton);
+    reverseClimb.whileHeld(new RobotClimb(RobotMap.climbDownSpeed));
+
+
+    armUp = new JoystickButton(driveStick, RobotMap.armUpButton);
+    armUp.whileHeld(new ArmMove(RobotMap.climbUpSpeed));
+
+    armDown = new JoystickButton(driveStick, RobotMap.armDownButton);
+    armDown.whileHeld(new ArmMove(RobotMap.climbDownSpeed));
   }
 
   public double getDriveAxis(int axis) {

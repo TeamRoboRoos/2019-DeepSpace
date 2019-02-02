@@ -13,7 +13,7 @@ import frc.robot.Robot;
 public class ArmMove extends Command {
  private double speed;
  
-  public ArmMove() {
+  public ArmMove(double speed) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.m_arm);
@@ -40,11 +40,13 @@ public class ArmMove extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.m_arm.ArmMove(0.0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

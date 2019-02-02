@@ -7,11 +7,6 @@
 
 package frc.robot;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import com.revrobotics.CANSparkMax;
-
-import edu.wpi.first.wpilibj.Joystick;
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -30,47 +25,54 @@ public class RobotMap {
   // public static int rangefinderModule = 1;
 
   
-  
-  
-  //Value for WPI_VictorSPX
-  public static int WPI_VictorSPX = 1; 
-
-  //Speed for Climber Motor
-  public static double climberSpeed = 0.5;
-  public static double reverseClimberSpeed = -0.5;
-
-
-  
-  public static double elevatorSpeedUp = 0.5;
-  public static double elevatorSpeedDown = -0.1;
-
   //Joysticks
-  public static int driveStick = 1;
-
+  //Joystic Ports
+  public static int driveStick = 0;
+  public static int opStick = 1;
   //Joystick Axis
-  public static int driveStickX = 1;
-  public static int driveStickY = 2;
-  public static int driveStickZ = 3;
-
+  public static int driveStickX = 0;
+  public static int driveStickY = 1;
+  public static int driveStickZ = 2;
   //Operator Buttons
-  public static int grabButton = 0;
-  public static int liftButton = 0;
-  public static int dropButton = 0;
-  public static int armUpButton = 0;
-  public static int armDownButton = 0;
-  public static int climberButton = 0;
-  public static int reverseClimberButton = 0;
+  public static int grabButton = 1;
+  public static int liftButton = 1;
+  public static int dropButton = 1;
+  public static int armUpButton = 1;
+  public static int armDownButton = 1;
+  public static int climbUpButton = 3;
+  public static int climbDownButton = 4;
 
-  //Drivebase Motors
-  public static int frontLeft = 1;
-  public static int frontRight = 2;
-  public static int rearLeft = 3;
-  public static int rearRight = 4;
 
-  //Grabber
-  public static int grabMotor = 0;
-  public static double grabSpeed = 0.5;
-
+  //CAN/PWM IDs
+  //Power Distribution Panel
+  public static int pdp = 0; //CAN
+  //Pneumatic Control Module
+  public static int pcm = 0; //CAN
+  //Drive Base
+  public static int frontLeftMotor = 1; //CAN SparkMax
+  public static int frontRightMotor = 2; //CAN SparkMax
+  public static int rearLeftMotor = 3; //CAN SparkMax
+  public static int rearRightMotor = 4; //CAN SparkMax
   //Arm
-  public static int armMotor = 1;
+  public static int armMotor = 1; //CAN TalonSRX
+  //Elevator
+  public static int elevatorMotor = 4; //CAN TalonSRX
+  //Climber
+  public static int climbExtensionMotor = 3; //CAN TalonSRX
+  public static int climbGrabberMotor = 1; //CAN VictorSPX
+  public static int climbDriveMotor = 2; //CAN VictorSPX
+  //Grabber
+  public static int grabberMotor = 1; //PWM Spark
+
+
+  //Motor Speeds
+  //Climber
+  public static double climbUpSpeed = 0.5;
+  public static double climbDownSpeed = -0.5;
+  //Elevator
+  public static double elevatorUpSpeen = 0.5;
+  public static double elevatorDownSpeed = -0.1;
+  //Grabber
+  public static double grabInSpeed = 0.5;
+  public static double grabOutSpeed = 0.5;
 }

@@ -25,17 +25,13 @@ public class Arm extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-
   }
+
   public Arm() {
     armMotor = new WPI_TalonSRX(RobotMap.armMotor);
   }
-  public void ArmMove(double speed) {
-    armMotor.set(ControlMode.PercentOutput, speed);
-    
-  }
 
- 
-  
-  
+  public void ArmMove(double speed) {
+    armMotor.set(ControlMode.PercentOutput, speed); 
+  }
 }

@@ -7,12 +7,9 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.RobotMap;
@@ -26,16 +23,14 @@ public class DriveBase extends Subsystem {
   // here. Call these from Commands.
   private CANSparkMax frontLeft, frontRight, rearLeft, rearRight;
   private MecanumDrive drive;
-  private AHRS navx;
 
   public DriveBase() {
-    frontLeft = new CANSparkMax(RobotMap.frontLeft, MotorType.kBrushless);
-    frontRight = new CANSparkMax(RobotMap.frontRight, MotorType.kBrushless);
-    rearLeft = new CANSparkMax(RobotMap.rearLeft, MotorType.kBrushless);
-    rearRight = new CANSparkMax(RobotMap.rearRight, MotorType.kBrushless);
+    frontLeft = new CANSparkMax(RobotMap.frontLeftMotor, MotorType.kBrushless);
+    frontRight = new CANSparkMax(RobotMap.frontRightMotor, MotorType.kBrushless);
+    rearLeft = new CANSparkMax(RobotMap.rearLeftMotor, MotorType.kBrushless);
+    rearRight = new CANSparkMax(RobotMap.rearRightMotor, MotorType.kBrushless);
 
     drive = new MecanumDrive(frontLeft, rearLeft, frontRight, rearRight);
-    navx = new AHRS(SPI.Port.kMXP);
   }
 
   @Override
@@ -47,11 +42,5 @@ public class DriveBase extends Subsystem {
 
   public void drive(double x, double y, double z) {
     drive.driveCartesian(x, y, z);
-  }
-
-  public double getAngle() {
-   return navx.getAngle();
-  }
-  
+  }  
 }
- 

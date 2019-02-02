@@ -20,11 +20,11 @@ public class BallGrabber extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public WPI_VictorSPX grabMotor;
+  
   public BallGrabber() {
     grabMotor = new WPI_VictorSPX(RobotMap.grabButton);
   }
 
-  
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
