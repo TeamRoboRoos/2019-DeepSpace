@@ -7,6 +7,10 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+
+import edu.wpi.first.wpilibj.Joystick;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -25,5 +29,26 @@ public class RobotMap {
   // public static int rangefinderModule = 1;
   public static double elevatorSpeedUp = 0.5;
   public static double elevatorSpeedDown = -0.1;
+
+  //Joysticks
+  public static int driveStick = 1;
+
+  //Joystick Axis
+  public static int driveStickX = 1;
+  public static int driveStickY = 2;
+  public static int driveStickZ = 3;
+
+  //Operator Buttons
+  public static int grabButton = 0;
+
+  //Drivebase Motors
+  public static int frontLeft = 1;
+  public static int frontRight = 2;
+  public static int rearLeft = 3;
+  public static int rearRight = 4;
+
+  //Grabber
+  public static int grabMotor = 0;
+  public static double grabSpeed = 0.5;
 
 }

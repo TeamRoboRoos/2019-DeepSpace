@@ -9,15 +9,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
+import frc.robot.subsystems.BallGrabber;
 
-public class MoveElevator extends Command {
-  private double speed;
-
-  public MoveElevator(double speed) {
+public class Grab extends Command {
+  public Grab() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.m_elevator);
-    this.speed = speed;
+    requires(Robot.m_ballGrabber);
   }
 
   // Called just before this Command runs the first time
@@ -28,7 +27,7 @@ public class MoveElevator extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_elevator.moveElevator(speed);
+    Robot.m_ballGrabber.grab(RobotMap.grabSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -40,6 +39,7 @@ public class MoveElevator extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+
   }
 
   // Called when another command which requires one or more of the same

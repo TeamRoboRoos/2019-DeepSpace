@@ -9,15 +9,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
-public class MoveElevator extends Command {
-  private double speed;
-
-  public MoveElevator(double speed) {
+public class DriveMecanum extends Command {
+  public DriveMecanum() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.m_elevator);
-    this.speed = speed;
+    requires(Robot.m_driveBase);
   }
 
   // Called just before this Command runs the first time
@@ -28,7 +26,11 @@ public class MoveElevator extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_elevator.moveElevator(speed);
+    double powerX = Robot.m_oi.getDriveAxis(RobotMap.driveStickX);
+    double powerY = Robot.m_oi.getDriveAxis(RobotMap.driveStickY);
+    double powerZ = Robot.m_oi.getDriveAxis(RobotMap.driveStickZ);
+
+    Robot.m_driveBase.drive(powerX, powerY, powerZ);
   }
 
   // Make this return true when this Command no longer needs to run execute()
