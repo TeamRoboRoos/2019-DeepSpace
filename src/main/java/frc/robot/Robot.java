@@ -13,22 +13,32 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
+<<<<<<< HEAD
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ExampleSubsystem;
+=======
+import frc.robot.subsystems.*;
+
+>>>>>>> 75c87ee78a711dcd3c22e3b19e4137ce69293c7b
 
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
  * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.gradle file in the
+ * creating this project, yous must also update the build.gradle file in the
  * project.
  */
 public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+<<<<<<< HEAD
 
   public static Climber m_climber = new Climber();
+=======
+  public static Elevator m_elevator = new Elevator();
+>>>>>>> 75c87ee78a711dcd3c22e3b19e4137ce69293c7b
   public static OI m_oi;
-
+  public static DriveBase m_driveBase;
+  public static BallGrabber m_ballGrabber;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
