@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -23,4 +25,13 @@ public class RobotMap {
   // number and the module. For example you with a rangefinder:
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
+  
+  //Value for WPI_VictorSPX
+  public static int WPI_VictorSPX = 1; 
+
+  //Speed for Climber Motor
+  public static double climberSpeed = 0.5;
+
+
+  
 }
