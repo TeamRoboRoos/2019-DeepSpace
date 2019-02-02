@@ -7,9 +7,13 @@
 
 package frc.robot;
 
+<<<<<<< HEAD
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+=======
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.Joystick;
+>>>>>>> 75c87ee78a711dcd3c22e3b19e4137ce69293c7b
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -27,6 +31,17 @@ public class RobotMap {
   // number and the module. For example you with a rangefinder:
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
+<<<<<<< HEAD
+  
+  //Value for WPI_VictorSPX
+  public static int WPI_VictorSPX = 1; 
+
+  //Speed for Climber Motor
+  public static double climberSpeed = 0.5;
+
+
+  
+=======
   public static double elevatorSpeedUp = 0.5;
   public static double elevatorSpeedDown = -0.1;
 
@@ -53,4 +68,5 @@ public class RobotMap {
   public static int grabMotor = 0;
   public static double grabSpeed = 0.5;
 
+>>>>>>> 75c87ee78a711dcd3c22e3b19e4137ce69293c7b
 }
