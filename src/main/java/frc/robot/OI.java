@@ -7,6 +7,12 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.Grab;
+import frc.robot.commands.MoveElevator;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -39,4 +45,25 @@ public class OI {
   // Start the command when the button is released and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
+  private Joystick driveStick;
+
+  private Button grabBall;
+  private Button liftElevator;
+  private Button dropElevator;
+
+  public OI() {
+    Joystick driveStick = new Joystick(RobotMap.driveStick);
+
+    Button grabBall = new JoystickButton(driveStick, RobotMap.grabButton);
+    Button dropElevator = new JoystickButton(driveStick, RobotMap.dropButton);
+    Button liftElevator = new JoystickButton(driveStick, RobotMap.liftButton);
+
+    grabBall.whileActive(new Grab());
+    dropElevator.whileActive(new MoveElevator(RobotMap.elevatorSpeedDown));
+    liftElevator.whileActive(new MoveElevator(RobotMap.elevatorSpeedUp));
+  }
+
+  public double getDriveAxis(int axis) {
+    return driveStick.getRawAxis(axis);
+  }
 }
