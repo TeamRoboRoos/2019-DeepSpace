@@ -40,6 +40,8 @@ public class RobotMap {
 
   //Operator Buttons
   public static int grabButton = 0;
+  public static int liftButton = 0;
+  public static int dropButton = 0;
 
   //Drivebase Motors
   public static int frontLeft = 1;
