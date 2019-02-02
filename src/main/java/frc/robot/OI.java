@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.Grab;
 import frc.robot.commands.MoveElevator;
+import frc.robot.commands.RobotClimb;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -50,6 +51,8 @@ public class OI {
   private Button grabBall;
   private Button liftElevator;
   private Button dropElevator;
+  private Button climb;
+  private Button reverseClimb;
 
   public OI() {
     Joystick driveStick = new Joystick(RobotMap.driveStick);
@@ -57,10 +60,14 @@ public class OI {
     Button grabBall = new JoystickButton(driveStick, RobotMap.grabButton);
     Button dropElevator = new JoystickButton(driveStick, RobotMap.dropButton);
     Button liftElevator = new JoystickButton(driveStick, RobotMap.liftButton);
+    Button climb = new JoystickButton(driveStick, RobotMap.climbButton);
+    Button reverseClimb = new JoystickButton(driveStick, RobotMap.reverseClimbButton);
 
     grabBall.whileActive(new Grab());
     dropElevator.whileActive(new MoveElevator(RobotMap.elevatorSpeedDown));
     liftElevator.whileActive(new MoveElevator(RobotMap.elevatorSpeedUp));
+    climb.whileActive(new RobotClimb(RobotMap.climberSpeed));
+    reverseClimb.whileActive(new RobotClimb(RobotMap.reverseClimberSpeed));
   }
 
   public double getDriveAxis(int axis) {

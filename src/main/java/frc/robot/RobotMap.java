@@ -37,6 +37,7 @@ public class RobotMap {
 
   //Speed for Climber Motor
   public static double climberSpeed = 0.5;
+  public static double reverseClimberSpeed = -0.5;
 
 
   
@@ -55,6 +56,8 @@ public class RobotMap {
   public static int grabButton = 0;
   public static int liftButton = 0;
   public static int dropButton = 0;
+  public static int climbButton = 0;
+  public static int reverseClimbButton = 0; 
 
   //Drivebase Motors
   public static int frontLeft = 1;

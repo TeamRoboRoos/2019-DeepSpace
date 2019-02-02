@@ -25,13 +25,12 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
-  public static Arm m_arm = new Arm();
+
   public static Climber m_climber = new Climber();
   public static Elevator m_elevator = new Elevator();
-  
-  public static DriveBase m_driveBase = new DriveBase();
-  public static BallGrabber m_ballGrabber = new BallGrabber();
   public static OI m_oi;
+  public static DriveBase m_driveBase;
+  public static BallGrabber m_ballGrabber;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -101,12 +100,7 @@ public class Robot extends TimedRobot {
     }
   }
 
-  // Joystick stick = new Joystick(port);
-  // Button button = new JoystickButton(stick, buttonNumber);
-  // button.whenPressed(new ExampleCommand());
-
-
-
+                                                
   /**
    * This function is called periodically during autonomous.
    */
