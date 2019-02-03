@@ -49,6 +49,7 @@ public class RobotMap {
   //Pneumatic Control Module
   public static int pcm = 0; //CAN
   //Drive Base
+  public static boolean sparkDriveBase = true; //Set to true if using sparks on drive base or false for talons
   public static int frontLeftMotor = 1; //CAN SparkMax
   public static int frontRightMotor = 2; //CAN SparkMax
   public static int rearLeftMotor = 3; //CAN SparkMax
