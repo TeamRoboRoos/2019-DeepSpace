@@ -21,6 +21,13 @@ public class Elevator extends Subsystem {
   // here. Call these from Commands.
   private WPI_TalonSRX elevatorLift;
 
+  private float maxUpPower = 0.5f;
+  private float maxDownPower = -0.3f; 
+  private float currentPower = 0;
+  private float maxAcceleration = 0.01f;
+  enum ElevatorState {GOING_UP, GOING_DOWN, UP, DOWN, PANIC} 
+  private ElevatorState state;
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
@@ -29,9 +36,50 @@ public class Elevator extends Subsystem {
 
   public Elevator() {
     elevatorLift = new WPI_TalonSRX(RobotMap.elevatorMotor);
+    this.state = ElevatorState.PANIC; 
+  }
+
+  public void setState(ElevatorState state) {
+    this.state = state;
   }
   
   public void moveElevator(double speed) {
-    elevatorLift.set(ControlMode.PercentOutput, speed);
+
+    switch (this.state) {
+      case GOING_UP:
+        this.calculatePower(this.maxUpPower, this.maxAcceleration);
+        break;
+      case GOING_DOWN:
+        this.calculatePower(this.maxDownPower, this.maxAcceleration);
+        break;
+      case UP: 
+        // a world ending device
+        break;
+      case DOWN:
+        //I just died
+        break;
+      default:
+        this.currentPower = 0;
+        break;
+    }
+
+    elevatorLift.set(ControlMode.PercentOutput, this.currentPower);
   }
+
+  private void calculatePower(float targetPower, float accelerationRate) {
+    if (targetPower < this.currentPower) {
+      this.currentPower -= accelerationRate;
+      if (targetPower > this.currentPower) {
+        this.currentPower = targetPower;
+      }
+    }
+    
+    if (targetPower > this.currentPower) {
+      this.currentPower += accelerationRate;
+      if (targetPower < this.currentPower) {
+        this.currentPower = targetPower;
+      }
+    }
+  }
+
 }

@@ -43,13 +43,10 @@ public class RobotMap {
   public static int armDownButton = 1;
   public static int climbUpButton = 3;
   public static int climbDownButton = 4;
-<<<<<<< HEAD
   public static int cameraButton = 1;
-=======
 
   public static int pressureSensor = 0;
 
->>>>>>> c26481766b8a308bc07a8649697c671af0695b3d
 
   //CAN/PWM IDs
   //Power Distribution Panel

@@ -41,15 +41,12 @@ public class Telemetry extends Subsystem {
     pdp = new PowerDistributionPanel(RobotMap.pdp);
     LiveWindow.add(pdp);
 
-<<<<<<< HEAD
     camera1 = CameraServer.getInstance().startAutomaticCapture(0);
     camera2 = CameraServer.getInstance().startAutomaticCapture(1);
     server = CameraServer.getInstance().addServer("Switched camera");
     camera1.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
     camera2.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
-=======
     pressureSensorReading = new AnalogInput(RobotMap.pressureSensor);
->>>>>>> c26481766b8a308bc07a8649697c671af0695b3d
   }
 
   @Override
@@ -60,7 +57,6 @@ public class Telemetry extends Subsystem {
   
   public double getGyroAngle() {
     return navx.getAngle();
-<<<<<<< HEAD
    }
 
   public void switchCamera() {
@@ -71,11 +67,9 @@ public class Telemetry extends Subsystem {
       cameraStatus = false;
       server.setSource(camera1);
     }
-=======
   }
 
   public double getPressure() {
     return 250 * (pressureSensorReading.getVoltage()/5) - 25;
->>>>>>> c26481766b8a308bc07a8649697c671af0695b3d
   }
 }
