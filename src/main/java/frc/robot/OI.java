@@ -52,6 +52,7 @@ public class OI {
   private Button climb, reverseClimb;
   private Button armUp, armDown;
   private Button solForward, solReverse;
+  private Button autoClimb;
 
   public OI() {
     driveStick = new Joystick(RobotMap.driveStick);
@@ -80,8 +81,10 @@ public class OI {
     reverseClimb = new JoystickButton(driveStick, RobotMap.climbDownButton);
     reverseClimb.whileHeld(new RobotClimb(RobotMap.climbDownSpeed));
 
+    autoClimb = new JoystickButton(driveStick, RobotMap.autoClimbButton);
+    autoClimb.whenPressed(new AutoClimb());
 
-    armUp = new JoystickButton(driveStick, RobotMap.armUpButton);
+    armUp = new JoystickButton(driveStick, RobotMap.armUpButton); 
     armUp.whileHeld(new ArmMove(RobotMap.climbUpSpeed));
 
     armDown = new JoystickButton(driveStick, RobotMap.armDownButton);

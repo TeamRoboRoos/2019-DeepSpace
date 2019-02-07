@@ -22,6 +22,7 @@ public class Climber extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private WPI_TalonSRX climbMotor; 
+    
 
   public Climber() {
     climbMotor = new WPI_TalonSRX(RobotMap.climbExtensionMotor);
@@ -40,4 +41,6 @@ public class Climber extends Subsystem {
     climbMotor.set(ControlMode.PercentOutput, speed);
 
   }
-}
+
+  
+  }

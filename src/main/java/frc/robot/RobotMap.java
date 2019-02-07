@@ -43,6 +43,7 @@ public class RobotMap {
   public static int climbDownButton = 4;
   public static int solForwardButton = 1;
   public static int solReverseButton = 1;
+  public static int autoClimbButton = 1;
 
 
   //CAN/PWM IDs

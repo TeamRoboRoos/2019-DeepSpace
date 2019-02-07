@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 /**
@@ -23,6 +24,12 @@ public class Telemetry extends Subsystem {
   // here. Call these from Commands.
   private AHRS navx;
   private PowerDistributionPanel pdp;
+  static final double offBalanceDegree = 10;
+  static final double onBalanceDegree = 5;
+  private double pitchAngleDegrees;
+  private double xAxisRate;
+  private double rollAngleDegrees;
+  private double yAxisRate;
 
   public Telemetry() {
     navx = new AHRS(SPI.Port.kMXP);
@@ -40,4 +47,9 @@ public class Telemetry extends Subsystem {
   public double getGyroAngle() {
     return navx.getAngle();
    }
+
+   public float getPitch() {
+     return navx.getPitch();
+   }
+  
 }
