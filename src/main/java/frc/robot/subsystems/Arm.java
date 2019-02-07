@@ -11,6 +11,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+
 import frc.robot.RobotMap;
 
 /**
@@ -20,7 +23,7 @@ public class Arm extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private WPI_TalonSRX armMotor;
-
+  
  @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
@@ -29,6 +32,9 @@ public class Arm extends Subsystem {
 
   public Arm() {
     armMotor = new WPI_TalonSRX(RobotMap.armMotor);
+    armMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    armMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+
   }
 
   public void ArmMove(double speed) {
