@@ -14,6 +14,10 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import frc.robot.RobotMap;
+import edu.wpi.cscore.VideoSink;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.cscore.VideoSource;
 
 /**
  * Add your docs here.
@@ -24,11 +28,22 @@ public class Telemetry extends Subsystem {
   private AHRS navx;
   private PowerDistributionPanel pdp;
 
+  private UsbCamera camera1;
+  private UsbCamera camera2;
+  private VideoSink server;
+  private boolean cameraStatus = false;
+
   public Telemetry() {
     navx = new AHRS(SPI.Port.kMXP);
 
     pdp = new PowerDistributionPanel(RobotMap.pdp);
     LiveWindow.add(pdp);
+
+    camera1 = CameraServer.getInstance().startAutomaticCapture(0);
+    camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+    server = CameraServer.getInstance().addServer("Switched camera");
+    camera1.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
+    camera2.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
   }
 
   @Override
@@ -40,4 +55,14 @@ public class Telemetry extends Subsystem {
   public double getGyroAngle() {
     return navx.getAngle();
    }
+
+  public void switchCamera() {
+    if(cameraStatus = false) {
+      cameraStatus = true;
+      server.setSource(camera2);
+    } else {
+      cameraStatus = false;
+      server.setSource(camera1);
+    }
+  }
 }
