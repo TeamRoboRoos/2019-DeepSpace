@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -23,12 +24,15 @@ public class Telemetry extends Subsystem {
   // here. Call these from Commands.
   private AHRS navx;
   private PowerDistributionPanel pdp;
+  private AnalogInput pressureSensorReading;
 
   public Telemetry() {
     navx = new AHRS(SPI.Port.kMXP);
 
     pdp = new PowerDistributionPanel(RobotMap.pdp);
     LiveWindow.add(pdp);
+
+    pressureSensorReading = new AnalogInput(RobotMap.pressureSensor);
   }
 
   @Override
@@ -39,5 +43,9 @@ public class Telemetry extends Subsystem {
   
   public double getGyroAngle() {
     return navx.getAngle();
-   }
+  }
+
+  public double getPressure() {
+    return 250 * (pressureSensorReading.getVoltage()/5) - 25;
+  }
 }
