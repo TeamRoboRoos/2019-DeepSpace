@@ -82,5 +82,18 @@ public class RobotMap {
   public static double grabInSpeed = 0.5;
   public static double grabOutSpeed = 0.5;
 
+<<<<<<< HEAD
+  //PID Calibration
+    public final double kP = 0;
+    public final double kI = 0;
+    public final double kD = 0;
+    public final double kF = 0;
+    public final int kIzone = 0;
+=======
   
+>>>>>>> f382a87f4123dfd35c7b54875d83e990ea9dbd2c
 }
+
+    
+
+
