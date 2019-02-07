@@ -51,6 +51,7 @@ public class OI {
   private Button liftElevator, dropElevator;
   private Button climb, reverseClimb;
   private Button armUp, armDown;
+  private Button solForward, solReverse;
 
   public OI() {
     driveStick = new Joystick(RobotMap.driveStick);
@@ -59,6 +60,12 @@ public class OI {
     grabBall = new JoystickButton(driveStick, RobotMap.grabButton);
     grabBall.whileHeld(new Grab());
 
+    solForward = new JoystickButton(driveStick, RobotMap.solForwardButton);
+    solForward.whenPressed(new MoveSolenoid(true));
+    solForward.whenReleased(new MoveSolenoid(false));
+    solReverse = new JoystickButton(driveStick, RobotMap.solReverseButton);
+    solReverse.whenPressed(new MoveSolenoid(true));
+    solReverse.whenReleased(new MoveSolenoid(false));
 
     dropElevator = new JoystickButton(driveStick, RobotMap.dropButton);
     dropElevator.whileHeld(new MoveElevator(RobotMap.elevatorDownSpeed));

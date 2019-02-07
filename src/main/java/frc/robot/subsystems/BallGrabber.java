@@ -10,7 +10,10 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 /**
@@ -20,9 +23,19 @@ public class BallGrabber extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public WPI_VictorSPX grabMotor;
-  
+  public DoubleSolenoid solenoid;
+
   public BallGrabber() {
     grabMotor = new WPI_VictorSPX(RobotMap.grabButton);
+    solenoid = new DoubleSolenoid(RobotMap.grabberSolennoidChannel[0], RobotMap.grabberSolennoidChannel[1]); 
+  }
+
+  public void setSolenoid(boolean extend) {
+    if (extend) {
+      solenoid.set(Value.kForward);
+    } else {
+      solenoid.set(Value.kReverse);
+    }
   }
 
   @Override

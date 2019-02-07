@@ -30,6 +30,7 @@ public class Robot extends TimedRobot {
   public static DriveBase m_driveBase = new DriveBase();
   public static Elevator m_elevator = new Elevator();
   public static Telemetry m_telemetry = new Telemetry();
+  public static HatchGrabber m_hatchGrabber = new HatchGrabber();
   public static OI m_oi;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
