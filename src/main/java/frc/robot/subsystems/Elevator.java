@@ -30,7 +30,7 @@ public class Elevator extends Subsystem {
   private float maxDownPower = -0.3f; 
   private float currentPower = 0;
   private float maxAcceleration = 0.01f;
-  enum ElevatorState {GOING_UP, GOING_DOWN, UP, DOWN, PANIC} 
+  public static enum ElevatorState {GOING_UP, GOING_DOWN, UP, DOWN, PANIC} 
   private ElevatorState state;
 
   @Override
@@ -50,7 +50,7 @@ public class Elevator extends Subsystem {
     this.state = state;
   }
   
-  public void moveElevator(double speed) {
+  public void moveElevator() {
 
     switch (this.state) {
       case GOING_UP:

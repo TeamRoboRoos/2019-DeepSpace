@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.*;
+import frc.robot.subsystems.Elevator;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -72,10 +73,10 @@ public class OI {
     solReverse.whenReleased(new MoveSolenoid(false));
 
     dropElevator = new JoystickButton(driveStick, RobotMap.dropButton);
-    dropElevator.whileHeld(new MoveElevator(RobotMap.elevatorDownSpeed));
+    dropElevator.whileHeld(new MoveElevator(Elevator.ElevatorState.GOING_DOWN));
 
     liftElevator = new JoystickButton(driveStick, RobotMap.liftButton);
-    liftElevator.whileHeld(new MoveElevator(RobotMap.elevatorUpSpeen));
+    liftElevator.whileHeld(new MoveElevator(Elevator.ElevatorState.GOING_UP));
 
 
     climb = new JoystickButton(driveStick, RobotMap.climbUpButton);
