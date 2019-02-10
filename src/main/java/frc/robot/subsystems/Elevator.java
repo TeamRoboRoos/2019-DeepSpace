@@ -16,6 +16,8 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+
+
 /**
  * Add your docs here.
  */
@@ -53,15 +55,27 @@ public class Elevator extends Subsystem {
     switch (this.state) {
       case GOING_UP:
         this.calculatePower(this.maxUpPower, this.maxAcceleration);
+        if (this.getTopLimitSwitch()) {
+          this.currentPower = 0;
+          this.state = ElevatorState.UP;
+        }
         break;
       case GOING_DOWN:
         this.calculatePower(this.maxDownPower, this.maxAcceleration);
+        if (this.getBottomLimitSwitch()) {
+          this.currentPower = 0;
+          this.state = ElevatorState.DOWN;
+        } 
         break;
       case UP: 
-        // a world ending device
+        if (!this.getTopLimitSwitch()) {
+          this.state = ElevatorState.GOING_UP;
+        }    
         break;
       case DOWN:
-        //I just died
+        if (this.getBottomLimitSwitch()) {
+          this.state = ElevatorState.GOING_DOWN;
+        }
         break;
       default:
         this.currentPower = 0;
@@ -87,7 +101,7 @@ public class Elevator extends Subsystem {
     }
   }
 
-  private boolean getForwardLimitSwitch() {
+  private boolean getTopLimitSwitch() {
      Faults faults = new Faults();
     elevatorLift.getFaults(faults);
     if(faults.ForwardLimitSwitch) {
@@ -96,7 +110,7 @@ public class Elevator extends Subsystem {
     return false;
   }
 
-  private boolean getReverseLimitSwitch() {
+  private boolean getBottomLimitSwitch() {
     Faults faults = new Faults();
     elevatorLift.getFaults(faults);
     if(faults.ReverseLimitSwitch) {
