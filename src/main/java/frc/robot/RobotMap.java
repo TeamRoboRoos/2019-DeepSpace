@@ -43,6 +43,10 @@ public class RobotMap {
   public static int armDownButton = 1;
   public static int climbUpButton = 3;
   public static int climbDownButton = 4;
+  public static int solForwardButton = 1;
+  public static int solReverseButton = 1;
+  public static int autoClimbButton = 1;
+
   public static int cameraButton = 1;
 
   public static int pressureSensor = 0;
@@ -75,13 +79,21 @@ public class RobotMap {
   //Climber
   public static double climbUpSpeed = 0.5;
   public static double climbDownSpeed = -0.5;
+
   //Elevator
   public static double elevatorUpSpeen = 0.5;
   public static double elevatorDownSpeed = -0.1;
+
   //Grabber
   public static double grabInSpeed = 0.5;
   public static double grabOutSpeed = 0.5;
 
+
+  //Solennoid Channels
+  public static int[] grabberSolennoidChannel = {0,1};
+  public static int[] hatchSolChannel1 = {0,1};
+  public static int[] hatchSolChannel2 = {0,1};
+  
   //PID Calibration
   //Arm
   public static double kP = 0;

@@ -7,34 +7,38 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.Robot;
-import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class BallGrabber extends Subsystem {
+public class HatchGrabber extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  public WPI_VictorSPX grabMotor;
-  public DoubleSolenoid solenoid;
+  public DoubleSolenoid hatchSol1;
+  public DoubleSolenoid hatchSol2;
 
-  public BallGrabber() {
-    grabMotor = new WPI_VictorSPX(RobotMap.grabButton);
-    solenoid = new DoubleSolenoid(RobotMap.grabberSolennoidChannel[0], RobotMap.grabberSolennoidChannel[1]); 
+  public HatchGrabber() {
+     // Put methods for controlling this subsystem
+     // here. Call these from Commands.
+     hatchSol1 = new DoubleSolenoid(RobotMap.hatchSolChannel1[0], RobotMap.hatchSolChannel1[1]);
+     hatchSol2 = new DoubleSolenoid(RobotMap.hatchSolChannel2[0], RobotMap.hatchSolChannel2[1]);
   }
-
-  public void setSolenoid(boolean extend) {
+  public void setHatchSol1(boolean extend) {
     if (extend) {
-      solenoid.set(Value.kForward);
+      hatchSol1.set(Value.kForward);
     } else {
-      solenoid.set(Value.kReverse);
+      hatchSol1.set(Value.kReverse);
+    }
+  }
+  public void setHatchSol2(boolean extend) {
+    if (extend) {
+      hatchSol2.set(Value.kForward);
+    } else {
+      hatchSol2.set(Value.kReverse);
     }
   }
 
@@ -43,8 +47,7 @@ public class BallGrabber extends Subsystem {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }
-
-  public void grab(double speed) {
-    grabMotor.set(ControlMode.PercentOutput, speed);
-  }
 }
+
+
+
