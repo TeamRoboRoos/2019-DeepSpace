@@ -48,7 +48,7 @@ public class Arm extends Subsystem {
      * Config the allowable closed-loop error, Closed-Loop output will be neutral
      * within this range. See Table in Section 17.2.1 for native units per rotation.
      */
-    armMotor.configAllowableClosedloopError(0, RobotMap.allowableClosedloopError);
+    armMotor.configAllowableClosedloopError(0, RobotMap.allowableError);
 
     /**
      * Set based on what direction you want forward/positive to be. This does not
