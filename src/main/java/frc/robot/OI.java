@@ -54,9 +54,12 @@ public class OI {
   private Button solForward, solReverse;
   private Button autoClimb;
 
+  private Button cameraSwap;
   public OI() {
     driveStick = new Joystick(RobotMap.driveStick);
 
+    cameraSwap = new JoystickButton(driveStick, RobotMap.cameraButton);
+    cameraSwap.whenPressed(new CameraSwap());
 
     grabBall = new JoystickButton(driveStick, RobotMap.grabButton);
     grabBall.whileHeld(new Grab());

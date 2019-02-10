@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -44,6 +46,10 @@ public class RobotMap {
   public static int solForwardButton = 1;
   public static int solReverseButton = 1;
   public static int autoClimbButton = 1;
+
+  public static int cameraButton = 1;
+
+  public static int pressureSensor = 0;
 
 
   //CAN/PWM IDs
@@ -88,4 +94,16 @@ public class RobotMap {
   public static int[] hatchSolChannel1 = {0,1};
   public static int[] hatchSolChannel2 = {0,1};
 
+
+  //PID Calibration
+    public final double kP = 0;
+    public final double kI = 0;
+    public final double kD = 0;
+    public final double kF = 0;
+    public final int kIzone = 0;
+  
 }
+
+    
+
+
