@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.Faults;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 /**
@@ -82,4 +83,21 @@ public class Elevator extends Subsystem {
     }
   }
 
+  private boolean getForwardLimitSwitch() {
+     Faults faults = new Faults();
+    elevatorLift.getFaults(faults);
+    if(faults.ForwardLimitSwitch) {
+      return true;
+    }
+    return false;
+  }
+
+  private boolean getReverseLimitSwitch() {
+    Faults faults = new Faults();
+    elevatorLift.getFaults(faults);
+    if(faults.ReverseLimitSwitch) {
+      return true;
+    }
+    return false;
+  }
 }
