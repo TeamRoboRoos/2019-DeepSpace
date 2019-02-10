@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,8 +22,7 @@ import frc.robot.RobotMap;
 public class Climber extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private WPI_TalonSRX climbMotor; 
-    
+  private WPI_TalonSRX climbMotor;
 
   public Climber() {
     climbMotor = new WPI_TalonSRX(RobotMap.climbExtensionMotor);
@@ -33,14 +33,16 @@ public class Climber extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand()); 
-    
+    // setDefaultCommand(new MySpecialCommand());
+
   }
 
-  public void controlClimber(double speed)  {
+  public void controlClimber(double speed) {
     climbMotor.set(ControlMode.PercentOutput, speed);
 
   }
 
-  
+  public void setBreaks(boolean set) {
+    climbMotor.setNeutralMode(set ? NeutralMode.Brake : NeutralMode.Coast);
   }
+}

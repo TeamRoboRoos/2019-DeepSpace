@@ -27,6 +27,10 @@ public class RobotMap {
   // public static int rangefinderModule = 1;
 
   
+  //Driver Preference Settings
+  public static boolean fieldOrientedDrive = true;
+  public static boolean squaredDriverInputs = true;
+  
   //Joysticks
   //Joystic Ports
   public static int driveStick = 0;
@@ -36,19 +40,24 @@ public class RobotMap {
   public static int driveStickY = 1;
   public static int driveStickZ = 2;
   //Operator Buttons
-  public static int grabButton = 1;
-  public static int liftButton = 1;
-  public static int dropButton = 1;
+  public static int grabInButton = 5;
+  public static int grabOutButton = 6;
+  public static int liftButton = 3;
+  public static int dropButton = 4;
   public static int armUpButton = 1;
   public static int armDownButton = 1;
-  public static int climbUpButton = 3;
-  public static int climbDownButton = 4;
-  public static int solForwardButton = 1;
+  public static int climbUpButton = 1;
+  public static int climbDownButton = 1;
+  public static int solForwardButton = 6;
   public static int solReverseButton = 1;
   public static int autoClimbButton = 1;
 
   public static int cameraButton = 1;
+  public static int driveStickReverse = 9;
+  public static int driveStickPrecision = 8;
+  public static int driveStickDriveAngleReset = 7;
 
+  //Analog Inputs
   public static int pressureSensor = 0;
 
 
@@ -66,13 +75,14 @@ public class RobotMap {
   //Arm
   public static int armMotor = 3; //CAN TalonSRX
   //Elevator
-  public static int elevatorMotor = 4; //CAN TalonSRX
+  public static int elevatorMotor = 2; //CAN TalonSRX
   //Climber
   public static int climbExtensionMotor = 5; //CAN TalonSRX
-  public static int climbGrabberMotor = 1; //CAN VictorSPX
-  public static int climbDriveMotor = 2; //CAN VictorSPX
+  public static int climbGrabberMotor = 6; //CAN VictorSPX
+  public static int climbDriveMotor = 7; //CAN VictorSPX
   //Grabber
-  public static int grabberMotor = 1; //PWM Spark
+  public static int grabberMotor1 = 0; //PWM Spark
+  public static int grabberMotor2 = 1; //PWM Spark
 
 
   //Motor Speeds
@@ -86,13 +96,16 @@ public class RobotMap {
 
   //Grabber
   public static double grabInSpeed = 0.5;
-  public static double grabOutSpeed = 0.5;
+  public static double grabOutSpeed = -1.0;
 
 
   //Solennoid Channels
-  public static int[] grabberSolennoidChannel = {0,1};
-  public static int[] hatchSolChannel1 = {2,3};
+  public static int[] grabberSolennoidChannel = {3};
+  public static int[] hatchSolChannel1 = {0,1};
   public static int[] hatchSolChannel2 = {4,5};
+
+  //Voltage Saturaiton
+  public static double voltageSaturation = 12.5;
 
   //Arm PID
   public static double kP = 0.2;

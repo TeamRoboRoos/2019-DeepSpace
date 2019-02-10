@@ -43,6 +43,8 @@ public class Telemetry extends Subsystem {
   private VideoSink server;
   private boolean cameraStatus = false;
 
+  private boolean breaksStatus = true;
+
   public Telemetry() {
     navx = new AHRS(SPI.Port.kMXP);
 
@@ -84,5 +86,13 @@ public class Telemetry extends Subsystem {
 
   public double getPressure() {
     return 250 * (pressureSensorReading.getVoltage()/5) - 25;
+  }
+
+  public void setBreaksStatus(boolean status) {
+    breaksStatus = status;
+  }
+
+  public boolean getBreaksStatus() {
+    return breaksStatus;
   }
 }

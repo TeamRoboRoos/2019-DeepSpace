@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -35,7 +36,7 @@ public class Robot extends TimedRobot {
   public static HatchGrabber m_hatchGrabber = new HatchGrabber();
   public static Pneumatics m_pneumatics = new Pneumatics();
   public static OI m_oi;
-  Command m_autonomousCommand;
+  Command m_autonomousCommand, m_breaksCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   
@@ -51,6 +52,10 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", null);
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+
+    m_breaksCommand = new SetAllBreaksInstant(true);
+
+    setBreaksOn();
   }
 
   /**
@@ -92,6 +97,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    setBreaksOn();
     m_autonomousCommand = m_chooser.getSelected();
 
     /*
@@ -122,6 +128,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    setBreaksOn();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
@@ -133,6 +140,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+    // m_elevator.elevatorLift.setInverted(InvertType.InvertMotorOutput);
+    // System.out.println(m_elevator.elevatorLift.getInverted());
   }
 
   /**
@@ -140,5 +149,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+
+  private void setBreaksOn() {
+    m_breaksCommand.start();
   }
 }

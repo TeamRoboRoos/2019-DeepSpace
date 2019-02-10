@@ -31,10 +31,7 @@ public class DriveMecanum extends Command {
     double powerY = -0.75 * Robot.m_oi.getDriveAxis(RobotMap.driveStickY);
     double powerZ = -0.5 * Robot.m_oi.getDriveAxis(RobotMap.driveStickZ);
 
-    // Robot.m_driveBase.drive(powerX, powerY, powerZ);
-    // System.out.println(powerY);
-    // SmartDashboard.putNumber("ArmPower", powerY);
-    // Robot.m_arm.ArmMove(powerY);
+    Robot.m_driveBase.drive(powerX, powerY, powerZ, RobotMap.squaredDriverInputs, RobotMap.fieldOrientedDrive);
   }
 
   // Make this return true when this Command no longer needs to run execute

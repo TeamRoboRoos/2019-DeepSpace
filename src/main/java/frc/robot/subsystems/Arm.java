@@ -18,6 +18,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.robot.RobotMap;
 import frc.robot.commands.TestArm;
@@ -40,7 +41,7 @@ public class Arm extends Subsystem {
   public Arm() {
     armMotor = new WPI_TalonSRX(RobotMap.armMotor);
     armMotor.configFactoryDefault();
-    armMotor.configVoltageCompSaturation(12.5);
+    armMotor.configVoltageCompSaturation(RobotMap.voltageSaturation);
     armMotor.enableVoltageCompensation(true);
     armMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     armMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
@@ -103,4 +104,7 @@ public class Arm extends Subsystem {
     SmartDashboard.putNumber("ArmPowerOutCurrent", armMotor.getOutputCurrent());
   }
 
+  public void setBreaks(boolean set) {
+    armMotor.setNeutralMode(set ? NeutralMode.Brake : NeutralMode.Coast);
+  }
 }
