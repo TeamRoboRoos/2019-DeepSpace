@@ -93,15 +93,15 @@ public class RobotMap {
   public static int[] grabberSolennoidChannel = {0,1};
   public static int[] hatchSolChannel1 = {0,1};
   public static int[] hatchSolChannel2 = {0,1};
-
-
-  //PID Calibration
-    public final double kP = 0;
-    public final double kI = 0;
-    public final double kD = 0;
-    public final double kF = 0;
-    public final int kIzone = 0;
   
+  //PID Calibration
+  //Arm
+  public static double kP = 0;
+  public static double kI = 0;
+  public static double kD = 0;
+  public static double kF = 0;
+  public static int kIzone = 0;
+  public static int allowableError = 0;
 }
 
     
