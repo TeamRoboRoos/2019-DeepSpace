@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.commands.SensorRead;
 import edu.wpi.cscore.VideoSink;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -60,6 +61,7 @@ public class Telemetry extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new SensorRead());
   }
   
   public double getGyroAngle() {

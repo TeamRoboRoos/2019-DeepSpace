@@ -64,11 +64,11 @@ public class RobotMap {
   public static int rearLeftMotor = 3; //CAN SparkMax
   public static int rearRightMotor = 4; //CAN SparkMax
   //Arm
-  public static int armMotor = 1; //CAN TalonSRX
+  public static int armMotor = 3; //CAN TalonSRX
   //Elevator
   public static int elevatorMotor = 4; //CAN TalonSRX
   //Climber
-  public static int climbExtensionMotor = 3; //CAN TalonSRX
+  public static int climbExtensionMotor = 5; //CAN TalonSRX
   public static int climbGrabberMotor = 1; //CAN VictorSPX
   public static int climbDriveMotor = 2; //CAN VictorSPX
   //Grabber
@@ -91,17 +91,16 @@ public class RobotMap {
 
   //Solennoid Channels
   public static int[] grabberSolennoidChannel = {0,1};
-  public static int[] hatchSolChannel1 = {0,1};
-  public static int[] hatchSolChannel2 = {0,1};
-  
-  //PID Calibration
-  //Arm
-  public static double kP = 0;
-  public static double kI = 0;
+  public static int[] hatchSolChannel1 = {2,3};
+  public static int[] hatchSolChannel2 = {4,5};
+
+  //Arm PID
+  public static double kP = 0.2;
+  public static double kI = 0.00025;
   public static double kD = 0;
   public static double kF = 0;
-  public static int kIzone = 0;
-  public static int allowableError = 0;
+  public static int kIzone = 5000;
+  public static int allowableError = 75;
 }
 
     

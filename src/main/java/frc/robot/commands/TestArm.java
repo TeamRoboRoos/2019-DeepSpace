@@ -10,13 +10,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
-public class DriveMecanum extends Command {
-  public DriveMecanum() {
+public class TestArm extends Command {
+  public TestArm() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.m_driveBase);
+    requires(Robot.m_arm);
   }
 
   // Called just before this Command runs the first time
@@ -27,17 +26,16 @@ public class DriveMecanum extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double powerX = 0.75 * Robot.m_oi.getDriveAxis(RobotMap.driveStickX);
-    double powerY = -0.75 * Robot.m_oi.getDriveAxis(RobotMap.driveStickY);
-    double powerZ = -0.5 * Robot.m_oi.getDriveAxis(RobotMap.driveStickZ);
-
-    // Robot.m_driveBase.drive(powerX, powerY, powerZ);
-    // System.out.println(powerY);
-    // SmartDashboard.putNumber("ArmPower", powerY);
-    // Robot.m_arm.ArmMove(powerY);
+    double tgt = Robot.m_oi.getDriveAxis(3);
+    tgt += 1.0;
+    tgt *= 0.5;
+    tgt *= -10000;
+    SmartDashboard.putNumber("ArmTargetIn", tgt);
+    Robot.m_arm.setArmPositon(tgt);
+    SmartDashboard.putNumber("ArmTargetOut", Robot.m_arm.getArmTargetPosition());
   }
 
-  // Make this return true when this Command no longer needs to run execute
+  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
@@ -46,13 +44,11 @@ public class DriveMecanum extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_driveBase.drive(0, 0, 0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }
