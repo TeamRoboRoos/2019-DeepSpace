@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.SensorRead;
 import edu.wpi.cscore.VideoSink;
@@ -30,12 +29,6 @@ public class Telemetry extends Subsystem {
   // here. Call these from Commands.
   private AHRS navx;
   private PowerDistributionPanel pdp;
-  static final double offBalanceDegree = 10;
-  static final double onBalanceDegree = 5;
-  private double pitchAngleDegrees;
-  private double xAxisRate;
-  private double rollAngleDegrees;
-  private double yAxisRate;
   private AnalogInput pressureSensorReading;
 
   private UsbCamera camera1;
@@ -75,7 +68,7 @@ public class Telemetry extends Subsystem {
    }
   
   public void switchCamera() {
-    if(cameraStatus = false) {
+    if(!cameraStatus) {
       cameraStatus = true;
       server.setSource(camera2);
     } else {

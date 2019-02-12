@@ -7,8 +7,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,7 +19,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.robot.RobotMap;
-import frc.robot.CustomObjects.C_WPI_TalonSRX;
+import frc.robot.customObjects.C_WPI_TalonSRX;
 import frc.robot.commands.TestArm;
 
 /**
@@ -92,11 +90,11 @@ public class Arm extends Subsystem {
 
   public void zeroArm() {
     if (!hasZeroed) {
-      System.out.println("Error: Arm Not Zeroed! Zeroing now.");
+      System.out.println("Error: Arm not zeroed! Zeroing now.");
       ArmMove(-0.5);
     }
     if (armMotor.getForwardLimitSwitch()) {
-      System.out.println("Error");
+      System.out.println("Arm successfully zeroed!");
       hasZeroed = true;
     }
   }

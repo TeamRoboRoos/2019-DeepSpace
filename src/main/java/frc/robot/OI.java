@@ -48,13 +48,13 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
 
-  private Joystick driveStick, opStick;
+  private Joystick driveStick;//, opStick;
 
   private Button grabBallIn, grabBallOut;
   private Button liftElevator, dropElevator;
   private Button climb, reverseClimb;
-  private Button armUp, armDown;
-  private Button solGrabForward, solGrabReverse;
+  // private Button armUp, armDown;
+  // private Button solGrabForward, solGrabReverse;
   private Button autoClimb;
   private Button cameraSwap;
   private Button reverseButton;
@@ -102,10 +102,10 @@ public class OI {
     autoClimb = new JoystickButton(driveStick, RobotMap.autoClimbButton);
     autoClimb.whileHeld(new AutoLiftClimber());
 
-    armUp = new JoystickButton(driveStick, RobotMap.armUpButton); 
+    // armUp = new JoystickButton(driveStick, RobotMap.armUpButton); 
     // armUp.whileHeld(new ArmMove(RobotMap.climbUpSpeed));
 
-    armDown = new JoystickButton(driveStick, RobotMap.armDownButton);
+    // armDown = new JoystickButton(driveStick, RobotMap.armDownButton);
     // armDown.whileHeld(new ArmMove(RobotMap.climbDownSpeed));
 
     breaks = new UserButton();
@@ -114,15 +114,12 @@ public class OI {
     reverseButton = new JoystickButton(driveStick, RobotMap.driveStickReverse);
     reverseButton.whenPressed(new ReverseDriveInstant());
 
-    
     resetDriveAngleButton = new JoystickButton(driveStick, RobotMap.driveStickDriveAngleReset);
     resetDriveAngleButton.whenPressed(new ResetDriveAngleInstant());
-
 
     precisionDriveButton = new JoystickButton(driveStick, RobotMap.driveStickPrecision);
     precisionDriveButton.whenPressed(new PrecisionDriveInstant());
     precisionDriveButton.whenReleased(new PrecisionDriveInstant());
-
 
     climbDriveTest = new JoystickButton(driveStick, RobotMap.climbDriveTestButton);
     climbDriveTest.whileHeld(new Climb());

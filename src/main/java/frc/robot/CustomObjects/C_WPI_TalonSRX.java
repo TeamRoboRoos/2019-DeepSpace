@@ -5,14 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.CustomObjects;
+package frc.robot.customObjects;
 
 import com.ctre.phoenix.motorcontrol.Faults;
 import com.ctre.phoenix.motorcontrol.StickyFaults;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 /**
- * Add your docs here.
+ * Custom class which extends WPI_TalonSRX to add functions for getting limit switch and restart status
  */
 public class C_WPI_TalonSRX extends WPI_TalonSRX {
   public C_WPI_TalonSRX(int id) {

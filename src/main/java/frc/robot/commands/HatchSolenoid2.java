@@ -12,7 +12,7 @@ import frc.robot.Robot;
 
 public class HatchSolenoid2 extends Command {
   private boolean extend;
-  public HatchSolenoid2() {
+  public HatchSolenoid2(boolean extend) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.m_hatchGrabber);
