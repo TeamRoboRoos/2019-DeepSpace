@@ -21,6 +21,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.robot.RobotMap;
+import frc.robot.CustomObjects.C_WPI_TalonSRX;
 import frc.robot.commands.TestArm;
 
 /**
@@ -29,7 +30,8 @@ import frc.robot.commands.TestArm;
 public class Arm extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private WPI_TalonSRX armMotor;
+  private C_WPI_TalonSRX armMotor;
+  private boolean hasZeroed = false;
 
   @Override
   public void initDefaultCommand() {
@@ -39,7 +41,7 @@ public class Arm extends Subsystem {
   }
 
   public Arm() {
-    armMotor = new WPI_TalonSRX(RobotMap.armMotor);
+    armMotor = new C_WPI_TalonSRX(RobotMap.armMotor);
     armMotor.configFactoryDefault();
     armMotor.configVoltageCompSaturation(RobotMap.voltageSaturation);
     armMotor.enableVoltageCompensation(true);
@@ -80,11 +82,28 @@ public class Arm extends Subsystem {
   }
 
   public void setArmPositon(double pos) {
-    armMotor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, calculateFeedForward(pos));
+    if (hasZeroed) {
+      armMotor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, calculateFeedForward(pos));
+      armStatusDashboard();
+    } else {
+      zeroArm();
+    }
+  }
+
+  public void zeroArm() {
+    if (!hasZeroed) {
+      System.out.println("Error: Arm Not Zeroed! Zeroing now.");
+      ArmMove(-0.5);
+    }
+    if (armMotor.getForwardLimitSwitch()) {
+      System.out.println("Error");
+      hasZeroed = true;
+    }
   }
 
   public double calculateFeedForward(double pos) {
-    double ff = (-3*Math.pow(10,-5)) * pos;
+    double ff = (-3 * Math.pow(10, -5)) * pos;
+    // ff = 0;
     SmartDashboard.putNumber("FeedForward", ff);
     return ff;
   }
@@ -99,12 +118,25 @@ public class Arm extends Subsystem {
 
   public void ArmMove(double speed) {
     armMotor.set(ControlMode.PercentOutput, speed + calculateFeedForward(getArmPosition()));
+    armStatusDashboard();
+  }
+
+  public void ArmMoveNoFF(double speed) {
+    armMotor.set(ControlMode.PercentOutput, speed);
+    armStatusDashboard();
+  }
+
+  public void setBreaks(boolean set) {
+    armMotor.setNeutralMode(set ? NeutralMode.Brake : NeutralMode.Coast);
+  }
+
+  public void armStatusDashboard() {
     SmartDashboard.putNumber("ArmPowerOutPercent", armMotor.getMotorOutputPercent());
     SmartDashboard.putNumber("ArmPowerOutVoltage", armMotor.getMotorOutputVoltage());
     SmartDashboard.putNumber("ArmPowerOutCurrent", armMotor.getOutputCurrent());
   }
 
-  public void setBreaks(boolean set) {
-    armMotor.setNeutralMode(set ? NeutralMode.Brake : NeutralMode.Coast);
+  public boolean hasZeroed() {
+    return hasZeroed;
   }
 }

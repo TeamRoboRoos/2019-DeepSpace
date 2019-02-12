@@ -29,7 +29,7 @@ public class TestArm extends Command {
     double tgt = Robot.m_oi.getDriveAxis(3);
     tgt += 1.0;
     tgt *= 0.5;
-    tgt *= -10000;
+    tgt *= -10700;
     SmartDashboard.putNumber("ArmTargetIn", tgt);
     Robot.m_arm.setArmPositon(tgt);
     SmartDashboard.putNumber("ArmTargetOut", Robot.m_arm.getArmTargetPosition());

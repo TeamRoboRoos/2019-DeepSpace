@@ -28,7 +28,7 @@ public class RobotMap {
 
   
   //Driver Preference Settings
-  public static boolean fieldOrientedDrive = true;
+  public static boolean fieldOrientedDrive = false;
   public static boolean squaredDriverInputs = true;
   
   //Joysticks
@@ -40,22 +40,23 @@ public class RobotMap {
   public static int driveStickY = 1;
   public static int driveStickZ = 2;
   //Operator Buttons
-  public static int grabInButton = 5;
-  public static int grabOutButton = 6;
-  public static int liftButton = 3;
-  public static int dropButton = 4;
+  public static int grabInButton = 1;
+  public static int grabOutButton = 1;
+  public static int hatchLiftButton = 1;
+  public static int hatchDropButton = 1;
   public static int armUpButton = 1;
   public static int armDownButton = 1;
-  public static int climbUpButton = 1;
-  public static int climbDownButton = 1;
-  public static int solForwardButton = 6;
+  public static int climbUpButton = 5;
+  public static int climbDownButton = 3;
+  public static int solForwardButton = 1;
   public static int solReverseButton = 1;
-  public static int autoClimbButton = 1;
+  public static int autoClimbButton = 2;
+  public static int climbDriveTestButton = 7;
 
   public static int cameraButton = 1;
-  public static int driveStickReverse = 9;
-  public static int driveStickPrecision = 8;
-  public static int driveStickDriveAngleReset = 7;
+  public static int driveStickReverse = 1;
+  public static int driveStickPrecision = 1;
+  public static int driveStickDriveAngleReset = 1;
 
   //Analog Inputs
   public static int pressureSensor = 0;
@@ -77,9 +78,9 @@ public class RobotMap {
   //Elevator
   public static int elevatorMotor = 2; //CAN TalonSRX
   //Climber
-  public static int climbExtensionMotor = 5; //CAN TalonSRX
-  public static int climbGrabberMotor = 6; //CAN VictorSPX
-  public static int climbDriveMotor = 7; //CAN VictorSPX
+  public static int climbExtensionMotor = 1; //CAN TalonSRX
+  public static int climbGrabberMotor = 2; //CAN VictorSPX
+  public static int climbDriveMotor = 1; //CAN VictorSPX
   //Grabber
   public static int grabberMotor1 = 0; //PWM Spark
   public static int grabberMotor2 = 1; //PWM Spark
@@ -87,7 +88,7 @@ public class RobotMap {
 
   //Motor Speeds
   //Climber
-  public static double climbUpSpeed = 0.5;
+  public static double climbUpSpeed = 1.0;
   public static double climbDownSpeed = -0.5;
 
   //Elevator

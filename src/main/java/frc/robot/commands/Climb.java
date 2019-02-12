@@ -10,29 +10,22 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class AutoClimb extends Command {
-  public AutoClimb() {
+public class Climb extends Command {
+  public Climb() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.m_arm);
-    requires(Robot.m_climber);
-    requires(Robot.m_pneumatics);
+    //requires(Robot.m_climber);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.m_pneumatics.disableCompressor();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_telemetry.getPitch();
-
-    //setPos and getPos to be created by Grady
-    //Robot.m_arm.setPosition(Robot.m_arm.getPosition + Robot.m_telemetry.getPitch());
-
+    Robot.m_climber.runClimb(0.5);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -44,7 +37,7 @@ public class AutoClimb extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_pneumatics.eneableCompressor();
+    Robot.m_climber.runClimb(0);
   }
 
   // Called when another command which requires one or more of the same

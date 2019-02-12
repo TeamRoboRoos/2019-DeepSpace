@@ -70,8 +70,8 @@ public class Telemetry extends Subsystem {
     return navx.getAngle();
    }
 
-   public float getPitch() {
-     return navx.getPitch();
+   public float getRoll() {
+     return navx.getRoll();
    }
   
   public void switchCamera() {
