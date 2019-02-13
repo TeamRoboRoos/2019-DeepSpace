@@ -48,7 +48,7 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
 
-  private Joystick driveStick;//, opStick;
+  private Joystick driveStick, opStick;
 
   private Button grabBallIn, grabBallOut;
   private Button liftElevator, dropElevator;
@@ -66,46 +66,48 @@ public class OI {
 
   public OI() {
     driveStick = new Joystick(RobotMap.driveStick);
+    opStick = driveStick;//new Joystick(RobotMap.opStick);
 
-    cameraSwap = new JoystickButton(driveStick, RobotMap.cameraButton);
-    cameraSwap.whenPressed(new CameraSwap());
 
-    grabBallIn = new JoystickButton(driveStick, RobotMap.grabInButton);
+    // cameraSwap = new JoystickButton(driveStick, RobotMap.cameraButton);
+    // cameraSwap.whenPressed(new CameraSwap());
+
+    grabBallIn = new JoystickButton(opStick, RobotMap.grabInButton);
     grabBallIn.whileHeld(new Grab(RobotMap.grabInSpeed));
 
-    grabBallOut = new JoystickButton(driveStick, RobotMap.grabOutButton);
+    grabBallOut = new JoystickButton(opStick, RobotMap.grabOutButton);
     // grabBallOut.whenPressed(new MoveGrabberSolenoid(true));
     grabBallOut.whileHeld(new Grab(RobotMap.grabOutSpeed));
     // grabBallOut.whenReleased(new MoveGrabberSolenoid(false));
 
-    // solGrabForward = new JoystickButton(driveStick, RobotMap.solForwardButton);
+    // solGrabForward = new JoystickButton(opStick, RobotMap.solForwardButton);
     // solGrabForward.whenPressed(new MoveGrabberSolenoid(true));
     // solGrabForward.whenReleased(new MoveGrabberSolenoid(false));
 
-    // solGrabReverse = new JoystickButton(driveStick, RobotMap.solReverseButton);
+    // solGrabReverse = new JoystickButton(opStick, RobotMap.solReverseButton);
     // solGrabReverse.whenPressed(new MoveGrabberSolenoid(true));
     // solGrabReverse.whenReleased(new MoveGrabberSolenoid(false));
 
-    dropElevator = new JoystickButton(driveStick, RobotMap.hatchDropButton);
+    dropElevator = new JoystickButton(opStick, RobotMap.hatchDropButton);
     dropElevator.whileHeld(new SetElevatorInstant(Elevator.ElevatorState.GOING_DOWN));
 
-    liftElevator = new JoystickButton(driveStick, RobotMap.hatchLiftButton);
+    liftElevator = new JoystickButton(opStick, RobotMap.hatchLiftButton);
     liftElevator.whileHeld(new SetElevatorInstant(Elevator.ElevatorState.GOING_UP));
 
 
-    climb = new JoystickButton(driveStick, RobotMap.climbUpButton);
-    climb.whileHeld(new RobotClimb(RobotMap.climbUpSpeed));
+    // climb = new JoystickButton(opStick, RobotMap.climbUpButton);
+    // climb.whileHeld(new RobotClimb(RobotMap.climbUpSpeed));
 
-    reverseClimb = new JoystickButton(driveStick, RobotMap.climbDownButton);
-    reverseClimb.whileHeld(new RobotClimb(RobotMap.climbDownSpeed));
+    // reverseClimb = new JoystickButton(opStick, RobotMap.climbDownButton);
+    // reverseClimb.whileHeld(new RobotClimb(RobotMap.climbDownSpeed));
 
-    autoClimb = new JoystickButton(driveStick, RobotMap.autoClimbButton);
-    autoClimb.whileHeld(new AutoLiftClimber());
+    // autoClimb = new JoystickButton(opStick, RobotMap.autoClimbButton);
+    // autoClimb.whileHeld(new AutoLiftClimber());
 
-    // armUp = new JoystickButton(driveStick, RobotMap.armUpButton); 
+    // armUp = new JoystickButton(opStick, RobotMap.armUpButton); 
     // armUp.whileHeld(new ArmMove(RobotMap.climbUpSpeed));
 
-    // armDown = new JoystickButton(driveStick, RobotMap.armDownButton);
+    // armDown = new JoystickButton(opStick, RobotMap.armDownButton);
     // armDown.whileHeld(new ArmMove(RobotMap.climbDownSpeed));
 
     breaks = new UserButton();
@@ -121,11 +123,15 @@ public class OI {
     precisionDriveButton.whenPressed(new PrecisionDriveInstant());
     precisionDriveButton.whenReleased(new PrecisionDriveInstant());
 
-    climbDriveTest = new JoystickButton(driveStick, RobotMap.climbDriveTestButton);
-    climbDriveTest.whileHeld(new Climb());
+    // climbDriveTest = new JoystickButton(opStick, RobotMap.climbDriveTestButton);
+    // climbDriveTest.whileHeld(new Climb());
   }
 
   public double getDriveAxis(int axis) {
     return driveStick.getRawAxis(axis);
+  }
+
+  public double getOpAxis(int axis) {
+    return opStick.getRawAxis(axis);
   }
 }

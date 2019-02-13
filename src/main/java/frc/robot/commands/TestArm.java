@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class TestArm extends Command {
   public TestArm() {
@@ -26,10 +27,10 @@ public class TestArm extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double tgt = Robot.m_oi.getDriveAxis(3);
+    double tgt = Robot.m_oi.getOpAxis(RobotMap.opAxisArm);
     tgt += 1.0;
     tgt *= 0.5;
-    tgt *= -10700;
+    tgt *= -10000; //-10700 for climber control, -10000 otherwise
     SmartDashboard.putNumber("ArmTargetIn", tgt);
     Robot.m_arm.setArmPositon(tgt);
     SmartDashboard.putNumber("ArmTargetOut", Robot.m_arm.getArmTargetPosition());

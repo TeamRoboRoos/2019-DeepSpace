@@ -37,6 +37,7 @@ public class RobotMap {
   public static int driveStickX = 0;
   public static int driveStickY = 1;
   public static int driveStickZ = 2;
+  public static int opAxisArm = 2;
   //Operator Buttons
   public static int grabInButton = 1;
   public static int grabOutButton = 1;
