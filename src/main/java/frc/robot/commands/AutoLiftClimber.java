@@ -30,10 +30,10 @@ public class AutoLiftClimber extends Command {
   @Override
   protected void execute() {
     float roll = Robot.m_telemetry.getRoll();
-    roll *= 20.0;
+    roll *= 30.0;
 
     Robot.m_arm.setArmPositon(Robot.m_arm.getArmTargetPosition() + roll);
-    Robot.m_climber.controlClimber(RobotMap.climbUpSpeed);
+    Robot.m_climber.controlClimberLift(RobotMap.climbUpSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -46,7 +46,7 @@ public class AutoLiftClimber extends Command {
   @Override
   protected void end() {
     Robot.m_pneumatics.eneableCompressor();
-    Robot.m_climber.controlClimber(0.0);
+    Robot.m_climber.controlClimberLift(0.0);
     Robot.m_arm.setArmPositon(Robot.m_arm.getArmTargetPosition());
   }
 

@@ -54,9 +54,9 @@ public class OI {
   private Button liftElevator, dropElevator;
   private Button climb, reverseClimb;
   // private Button armUp, armDown;
-  // private Button solGrabForward, solGrabReverse;
+  private Button solGrabSlide, solGrabPusher;
   private Button autoClimb;
-  private Button cameraSwap;
+  // private Button cameraSwap;
   private Button reverseButton;
   private Button resetDriveAngleButton;
   private Button precisionDriveButton;
@@ -66,7 +66,7 @@ public class OI {
 
   public OI() {
     driveStick = new Joystick(RobotMap.driveStick);
-    opStick = driveStick;//new Joystick(RobotMap.opStick);
+    opStick = new Joystick(RobotMap.opStick);
 
 
     // cameraSwap = new JoystickButton(driveStick, RobotMap.cameraButton);
@@ -80,13 +80,12 @@ public class OI {
     grabBallOut.whileHeld(new Grab(RobotMap.grabOutSpeed));
     // grabBallOut.whenReleased(new MoveGrabberSolenoid(false));
 
-    // solGrabForward = new JoystickButton(opStick, RobotMap.solForwardButton);
-    // solGrabForward.whenPressed(new MoveGrabberSolenoid(true));
-    // solGrabForward.whenReleased(new MoveGrabberSolenoid(false));
+    solGrabSlide = new JoystickButton(opStick, RobotMap.solSlideButton);
+    solGrabSlide.whenPressed(new HatchSolenoidSlide());
 
-    // solGrabReverse = new JoystickButton(opStick, RobotMap.solReverseButton);
-    // solGrabReverse.whenPressed(new MoveGrabberSolenoid(true));
-    // solGrabReverse.whenReleased(new MoveGrabberSolenoid(false));
+    solGrabPusher = new JoystickButton(opStick, RobotMap.solPushButton);
+    solGrabPusher.whenPressed(new HatchSolenoidPusher(true));
+    solGrabPusher.whenReleased(new HatchSolenoidPusher(false));
 
     dropElevator = new JoystickButton(opStick, RobotMap.hatchDropButton);
     dropElevator.whileHeld(new SetElevatorInstant(Elevator.ElevatorState.GOING_DOWN));
@@ -98,11 +97,11 @@ public class OI {
     // climb = new JoystickButton(opStick, RobotMap.climbUpButton);
     // climb.whileHeld(new RobotClimb(RobotMap.climbUpSpeed));
 
-    // reverseClimb = new JoystickButton(opStick, RobotMap.climbDownButton);
-    // reverseClimb.whileHeld(new RobotClimb(RobotMap.climbDownSpeed));
+    reverseClimb = new JoystickButton(opStick, RobotMap.climbDownButton);
+    reverseClimb.whileHeld(new RobotClimb(RobotMap.climbDownSpeed));
 
-    // autoClimb = new JoystickButton(opStick, RobotMap.autoClimbButton);
-    // autoClimb.whileHeld(new AutoLiftClimber());
+    autoClimb = new JoystickButton(opStick, RobotMap.autoClimbButton);
+    autoClimb.whileHeld(new AutoClimbEverything());
 
     // armUp = new JoystickButton(opStick, RobotMap.armUpButton); 
     // armUp.whileHeld(new ArmMove(RobotMap.climbUpSpeed));
@@ -124,14 +123,22 @@ public class OI {
     precisionDriveButton.whenReleased(new PrecisionDriveInstant());
 
     // climbDriveTest = new JoystickButton(opStick, RobotMap.climbDriveTestButton);
-    // climbDriveTest.whileHeld(new Climb());
+    // climbDriveTest.whileHeld(new ClimbDrive());
   }
 
   public double getDriveAxis(int axis) {
     return driveStick.getRawAxis(axis);
   }
 
+  public boolean getDriveButton(int button) {
+    return driveStick.getRawButton(button);
+  }
+
   public double getOpAxis(int axis) {
     return opStick.getRawAxis(axis);
+  }
+
+  public boolean getOpButton(int button) {
+    return opStick.getRawButton(button);
   }
 }

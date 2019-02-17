@@ -28,6 +28,8 @@ public class RobotMap {
   //Driver Preference Settings
   public static boolean fieldOrientedDrive = false;
   public static boolean squaredDriverInputs = true;
+  public static double driveTranslatePower = 0.75;
+  public static double driveRotatePower = 0.50;
   
   //Joysticks
   //Joystic Ports
@@ -39,23 +41,23 @@ public class RobotMap {
   public static int driveStickZ = 2;
   public static int opAxisArm = 2;
   //Operator Buttons
-  public static int grabInButton = 1;
-  public static int grabOutButton = 1;
-  public static int hatchLiftButton = 1;
-  public static int hatchDropButton = 1;
+  public static int grabInButton = 2;
+  public static int grabOutButton = 3;
+  public static int hatchLiftButton = 4;
+  public static int hatchDropButton = 5;
   public static int armUpButton = 1;
   public static int armDownButton = 1;
-  public static int climbUpButton = 5;
-  public static int climbDownButton = 3;
-  public static int solForwardButton = 1;
-  public static int solReverseButton = 1;
-  public static int autoClimbButton = 2;
-  public static int climbDriveTestButton = 7;
+  public static int climbUpButton = 1;
+  public static int climbDownButton = 11;
+  public static int solSlideButton = 7;
+  public static int solPushButton = 1;
+  public static int autoClimbButton = 10;
+  public static int climbDriveTestButton = 1;
 
-  public static int cameraButton = 1;
-  public static int driveStickReverse = 1;
+  public static int cameraButton = 4;
+  public static int driveStickReverse = 2;
   public static int driveStickPrecision = 1;
-  public static int driveStickDriveAngleReset = 1;
+  public static int driveStickDriveAngleReset = 3;
 
   //Analog Inputs
   public static int pressureSensor = 0;
@@ -83,12 +85,13 @@ public class RobotMap {
   //Grabber
   public static int grabberMotor1 = 0; //PWM Spark
   public static int grabberMotor2 = 1; //PWM Spark
+  //-2160 Level 2 rocket position-6444level1
 
 
   //Motor Speeds
   //Climber
   public static double climbUpSpeed = 1.0;
-  public static double climbDownSpeed = -0.5;
+  public static double climbDownSpeed = -1.0;
 
   //Elevator
   public static double elevatorUpSpeen = 0.5;
@@ -101,8 +104,8 @@ public class RobotMap {
 
   //Solennoid Channels
   public static int[] grabberSolennoidChannel = {3};
-  public static int[] hatchSolChannel1 = {0,1};
-  public static int[] hatchSolChannel2 = {4,5};
+  public static int[] hatchSolPusher = {4,5};
+  public static int[] hatchSolSlide = {0,1};
 
   //Voltage Saturaiton
   public static double voltageSaturation = 12.5;

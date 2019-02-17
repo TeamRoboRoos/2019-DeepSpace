@@ -43,10 +43,15 @@ public class DriveBase extends Subsystem {
 
       drive = new MecanumDrive(frontLeft, rearLeft, frontRight, rearRight);
     } else {
-      // frontLeftTalon = new WPI_TalonSRX(RobotMap.frontLeftMotor);
-      // frontRightTalon = new WPI_TalonSRX(RobotMap.frontRightMotor);
-      // rearLeftTalon = new WPI_TalonSRX(RobotMap.rearLeftMotor);
-      // rearRightTalon = new WPI_TalonSRX(RobotMap.rearRightMotor);
+      frontLeftTalon = new WPI_TalonSRX(10);
+      frontRightTalon = new WPI_TalonSRX(11);
+      rearLeftTalon = new WPI_TalonSRX(12);
+      rearRightTalon = new WPI_TalonSRX(13);
+      
+      frontLeftTalon.configFactoryDefault();
+      frontRightTalon.configFactoryDefault();
+      rearLeftTalon.configFactoryDefault();
+      rearRightTalon.configFactoryDefault();
 
       drive = new MecanumDrive(frontLeftTalon, rearLeftTalon, frontRightTalon, rearRightTalon);
     }
@@ -70,6 +75,10 @@ public class DriveBase extends Subsystem {
 
   public void drive(double xIn, double yIn, double zIn, boolean squaredInputs, boolean fieldOriented) {
     double x, y, z;
+
+    if (!RobotMap.sparkDriveBase) {
+      zIn *= -1;
+    }
 
     if (precision) {
       xIn *= 0.5;
@@ -107,6 +116,10 @@ public class DriveBase extends Subsystem {
   public void resetGyro() {
     gyroAngleZero = Robot.m_telemetry.getGyroAngle();
   }
+
+  public void setDirectionForwards() {
+    reversed = false;
+  } 
 
   public void toggleDirection() {
     reversed = !reversed;

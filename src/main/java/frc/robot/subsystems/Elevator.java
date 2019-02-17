@@ -60,14 +60,16 @@ public class Elevator extends Subsystem {
     elevatorLift.setInverted(InvertType.InvertMotorOutput);
     switch (this.state) {
       case GOING_UP:
-        this.calculatePower(this.maxUpPower, this.maxAcceleration);
+        // this.calculatePower(this.maxUpPower, this.maxAcceleration);
+        this.currentPower = this.maxUpPower;
         if (this.getTopLimitSwitch()) {
           this.currentPower = 0;
           this.state = ElevatorState.UP;
         }
         break;
       case GOING_DOWN:
-        this.calculatePower(this.maxDownPower, this.maxAcceleration);
+        // this.calculatePower(this.maxDownPower, this.maxAcceleration);
+        this.currentPower = this.maxDownPower;
         if (this.getBottomLimitSwitch()) {
           this.currentPower = 0;
           this.state = ElevatorState.DOWN;

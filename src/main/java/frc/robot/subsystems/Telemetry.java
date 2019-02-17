@@ -29,7 +29,7 @@ public class Telemetry extends Subsystem {
   // here. Call these from Commands.
   private AHRS navx;
   private PowerDistributionPanel pdp;
-  private AnalogInput pressureSensorReading;
+  private AnalogInput pressureSensor;
 
   private UsbCamera camera1;
   private UsbCamera camera2;
@@ -40,6 +40,7 @@ public class Telemetry extends Subsystem {
 
   public Telemetry() {
     navx = new AHRS(SPI.Port.kMXP);
+    LiveWindow.add(navx);
 
     pdp = new PowerDistributionPanel(RobotMap.pdp);
     LiveWindow.add(pdp);
@@ -49,7 +50,9 @@ public class Telemetry extends Subsystem {
     server = CameraServer.getInstance().addServer("Switched camera");
     camera1.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
     camera2.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
-    pressureSensorReading = new AnalogInput(RobotMap.pressureSensor);
+    server.setSource(camera1);
+
+    pressureSensor = new AnalogInput(RobotMap.pressureSensor);
   }
 
   @Override
@@ -78,7 +81,7 @@ public class Telemetry extends Subsystem {
   }
 
   public double getPressure() {
-    return 250 * (pressureSensorReading.getVoltage()/5) - 25;
+    return 250 * (pressureSensor.getVoltage()/5) - 25;
   }
 
   public void setBreaksStatus(boolean status) {

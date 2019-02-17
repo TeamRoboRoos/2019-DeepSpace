@@ -91,7 +91,7 @@ public class Arm extends Subsystem {
   public void zeroArm() {
     if (!hasZeroed) {
       System.out.println("Error: Arm not zeroed! Zeroing now.");
-      ArmMoveNoFF(-0.5);
+      ArmMoveNoFF(0.5);
     }
     if (armMotor.getForwardLimitSwitch()) {
       System.out.println("Arm successfully zeroed!");

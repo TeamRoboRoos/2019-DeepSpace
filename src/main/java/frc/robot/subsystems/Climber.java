@@ -28,6 +28,8 @@ public class Climber extends Subsystem {
   private WPI_TalonSRX climbMotor;
   private WPI_VictorSPX stiltMotor, grabberMotor;
 
+  private int autoClimbState = 0;
+
   public Climber() {
     climbMotor = new WPI_TalonSRX(RobotMap.climbExtensionMotor);
     climbMotor.configFactoryDefault();
@@ -50,7 +52,7 @@ public class Climber extends Subsystem {
 
   }
 
-  public void controlClimber(double speed) {
+  public void controlClimberLift(double speed) {
     climbMotor.set(ControlMode.PercentOutput, speed);
 
   }
@@ -62,7 +64,7 @@ public class Climber extends Subsystem {
     grabberMotor.setNeutralMode(mode);
   }
 
-  public void runClimb(double speed) {
+  public void runClimbDrive(double speed) {
     stiltMotor.set(ControlMode.PercentOutput, speed * 1.5);
     grabberMotor.set(ControlMode.PercentOutput, speed);
   }
@@ -83,5 +85,19 @@ public class Climber extends Subsystem {
       return true;
     }
     return false;
+  }
+
+  /**
+   * @return the autoClimbState
+   */
+  public int getAutoClimbState() {
+    return autoClimbState;
+  }
+
+  /**
+   * @param autoClimbState the autoClimbState to set
+   */
+  public void setAutoClimbState(int state) {
+    autoClimbState = state;
   }
 }

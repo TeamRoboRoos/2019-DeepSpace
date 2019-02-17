@@ -8,6 +8,8 @@
 package frc.robot.commandGroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commands.AutoLiftClimber;
+import frc.robot.commands.ClimbDrive;
 
 public class AutoClimbGroup extends CommandGroup {
   /**
@@ -30,5 +32,7 @@ public class AutoClimbGroup extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
+    addSequential(new AutoLiftClimber());
+    addSequential(new ClimbDrive());
   }
 }

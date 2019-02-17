@@ -44,9 +44,11 @@ public class Robot extends TimedRobot {
     m_oi = new OI();
     m_chooser.setDefaultOption("Default Auto", null);
     // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+    //SmartDashboard.putData("Auto mode", m_chooser);
 
     m_breaksCommand = new SetAllBreaksInstant(true);
+    
+    SmartDashboard.putNumber("ClimbState", -1);
 
     setBreaksOn();
   }
