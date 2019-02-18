@@ -7,17 +7,20 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.robot.RobotMap;
+import frc.robot.customObjects.C_WPI_TalonSRX;
+import frc.robot.commands.TestArm;
 
 /**
  * Add your docs here.
@@ -25,24 +28,30 @@ import frc.robot.RobotMap;
 public class Arm extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private WPI_TalonSRX armMotor;
+  private C_WPI_TalonSRX armMotor;
+  private boolean hasZeroed = false;
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new TestArm());
   }
 
   public Arm() {
-    armMotor = new WPI_TalonSRX(RobotMap.armMotor);
+    armMotor = new C_WPI_TalonSRX(RobotMap.armMotor);
+    armMotor.configFactoryDefault();
+    armMotor.configVoltageCompSaturation(RobotMap.voltageSaturation);
+    armMotor.enableVoltageCompensation(true);
     armMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     armMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    armMotor.configClearPositionOnLimitF(true, 10);
 
     /* Config the sensor used for Primary PID and sensor direction */
     armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
     /* Ensure sensor is positive when output is positive */
-    // armMotor.setSensorPhase(true);
+    armMotor.setSensorPhase(false);
 
     /**
      * Config the allowable closed-loop error, Closed-Loop output will be neutral
@@ -67,22 +76,65 @@ public class Arm extends Subsystem {
     armMotor.config_kP(0, RobotMap.kP);
     armMotor.config_kI(0, RobotMap.kI);
     armMotor.config_kD(0, RobotMap.kD);
-
-  }
-  public void setArmPositon(int pos) {
-    armMotor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, calculateFeedForward(pos));
+    armMotor.config_IntegralZone(0, RobotMap.kIzone);
   }
 
-  public double calculateFeedForward(int pos) {
-    return 0;
+  public void setArmPositon(double pos) {
+    if (hasZeroed) {
+      armMotor.set(ControlMode.Position, pos, DemandType.ArbitraryFeedForward, calculateFeedForward(pos));
+      armStatusDashboard();
+    } else {
+      zeroArm();
+    }
   }
 
-  public double getArmPosition() {
+  public void zeroArm() {
+    if (!hasZeroed) {
+      System.out.println("Error: Arm not zeroed! Zeroing now.");
+      ArmMoveNoFF(0.5);
+    }
+    if (armMotor.getForwardLimitSwitch()) {
+      System.out.println("Arm successfully zeroed!");
+      hasZeroed = true;
+    }
+  }
+
+  public double calculateFeedForward(double pos) {
+    double ff = (-3 * Math.pow(10, -5)) * pos;
+    // ff = 0;
+    SmartDashboard.putNumber("FeedForward", ff);
+    return ff;
+  }
+
+  public int getArmPosition() {
     return armMotor.getSelectedSensorPosition();
   }
 
-  public void ArmMove(double speed) {
-    armMotor.set(ControlMode.PercentOutput, speed);
+  public double getArmTargetPosition() {
+    return armMotor.getClosedLoopTarget();
   }
 
+  public void ArmMove(double speed) {
+    armMotor.set(ControlMode.PercentOutput, speed + calculateFeedForward(getArmPosition()));
+    armStatusDashboard();
+  }
+
+  public void ArmMoveNoFF(double speed) {
+    armMotor.set(ControlMode.PercentOutput, speed);
+    armStatusDashboard();
+  }
+
+  public void setBreaks(boolean set) {
+    armMotor.setNeutralMode(set ? NeutralMode.Brake : NeutralMode.Coast);
+  }
+
+  public void armStatusDashboard() {
+    SmartDashboard.putNumber("ArmPowerOutPercent", armMotor.getMotorOutputPercent());
+    SmartDashboard.putNumber("ArmPowerOutVoltage", armMotor.getMotorOutputVoltage());
+    SmartDashboard.putNumber("ArmPowerOutCurrent", armMotor.getOutputCurrent());
+  }
+
+  public boolean getHasZeroed() {
+    return hasZeroed;
+  }
 }

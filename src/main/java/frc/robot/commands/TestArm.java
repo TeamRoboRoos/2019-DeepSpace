@@ -8,15 +8,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
-public class HatchSolenoid2 extends Command {
-  private boolean extend;
-  public HatchSolenoid2() {
+public class TestArm extends Command {
+  public TestArm() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.m_hatchGrabber);
-    this.extend = extend;
+    requires(Robot.m_arm);
   }
 
   // Called just before this Command runs the first time
@@ -27,8 +27,13 @@ public class HatchSolenoid2 extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
-    Robot.m_hatchGrabber.setHatchSol2(extend);
+    double tgt = Robot.m_oi.getOpAxis(RobotMap.opAxisArm);
+    tgt += 1.0;
+    tgt *= 0.5;
+    tgt *= -10000; //-10700 for climber control, -10000 otherwise
+    SmartDashboard.putNumber("ArmTargetIn", tgt);
+    Robot.m_arm.setArmPositon(tgt);
+    SmartDashboard.putNumber("ArmTargetOut", Robot.m_arm.getArmTargetPosition());
   }
 
   // Make this return true when this Command no longer needs to run execute()

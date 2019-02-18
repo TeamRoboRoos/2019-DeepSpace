@@ -10,13 +10,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class HatchSolenoid extends Command {
-  private boolean extend;
-  public HatchSolenoid(boolean extend) {
+public class ClimbDrive extends Command {
+  public ClimbDrive() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.m_hatchGrabber);
-    this.extend = extend;
+    //requires(Robot.m_climber);
   }
 
   // Called just before this Command runs the first time
@@ -27,8 +25,7 @@ public class HatchSolenoid extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
-    Robot.m_hatchGrabber.setHatchSol1(extend);
+    Robot.m_climber.runClimbDrive(0.5);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -40,11 +37,13 @@ public class HatchSolenoid extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.m_climber.runClimbDrive(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

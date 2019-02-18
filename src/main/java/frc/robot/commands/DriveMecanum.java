@@ -8,7 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -27,11 +26,11 @@ public class DriveMecanum extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double powerX = 0.75 * Robot.m_oi.getDriveAxis(RobotMap.driveStickX);
-    double powerY = -0.75 * Robot.m_oi.getDriveAxis(RobotMap.driveStickY);
-    double powerZ = -0.5 * Robot.m_oi.getDriveAxis(RobotMap.driveStickZ);
+    double powerX = RobotMap.driveTranslatePower * Robot.m_oi.getDriveAxis(RobotMap.driveStickX);
+    double powerY = -RobotMap.driveTranslatePower * Robot.m_oi.getDriveAxis(RobotMap.driveStickY);
+    double powerZ = -RobotMap.driveRotatePower * Robot.m_oi.getDriveAxis(RobotMap.driveStickZ);
 
-    Robot.m_driveBase.drive(powerX, powerY, powerZ);
+    Robot.m_driveBase.drive(powerX, powerY, powerZ, RobotMap.squaredDriverInputs, RobotMap.fieldOrientedDrive);
   }
 
   // Make this return true when this Command no longer needs to run execute

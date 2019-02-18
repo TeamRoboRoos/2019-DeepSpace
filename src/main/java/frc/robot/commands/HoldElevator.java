@@ -9,15 +9,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.Elevator;
 
-public class MoveElevator extends Command {
-  private double speed;
+public class HoldElevator extends Command {
 
-  public MoveElevator(double speed) {
+  public HoldElevator() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.m_elevator);
-    this.speed = speed;
   }
 
   // Called just before this Command runs the first time
@@ -28,7 +27,7 @@ public class MoveElevator extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_elevator.moveElevator(speed);
+    Robot.m_elevator.moveElevator();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -40,7 +39,7 @@ public class MoveElevator extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_elevator.moveElevator(0);
+    Robot.m_elevator.setState(Elevator.ElevatorState.PANIC);
   }
 
   // Called when another command which requires one or more of the same

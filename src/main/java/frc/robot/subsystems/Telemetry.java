@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.commands.SensorRead;
 import edu.wpi.cscore.VideoSink;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -29,21 +29,18 @@ public class Telemetry extends Subsystem {
   // here. Call these from Commands.
   private AHRS navx;
   private PowerDistributionPanel pdp;
-  static final double offBalanceDegree = 10;
-  static final double onBalanceDegree = 5;
-  private double pitchAngleDegrees;
-  private double xAxisRate;
-  private double rollAngleDegrees;
-  private double yAxisRate;
-  private AnalogInput pressureSensorReading;
+  private AnalogInput pressureSensor;
 
   private UsbCamera camera1;
   private UsbCamera camera2;
   private VideoSink server;
   private boolean cameraStatus = false;
 
+  private boolean breaksStatus = true;
+
   public Telemetry() {
     navx = new AHRS(SPI.Port.kMXP);
+    LiveWindow.add(navx);
 
     pdp = new PowerDistributionPanel(RobotMap.pdp);
     LiveWindow.add(pdp);
@@ -53,25 +50,28 @@ public class Telemetry extends Subsystem {
     server = CameraServer.getInstance().addServer("Switched camera");
     camera1.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
     camera2.setConnectionStrategy(VideoSource.ConnectionStrategy.kKeepOpen);
-    pressureSensorReading = new AnalogInput(RobotMap.pressureSensor);
+    server.setSource(camera1);
+
+    pressureSensor = new AnalogInput(RobotMap.pressureSensor);
   }
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new SensorRead());
   }
   
   public double getGyroAngle() {
     return navx.getAngle();
    }
 
-   public float getPitch() {
-     return navx.getPitch();
+   public float getRoll() {
+     return navx.getRoll();
    }
   
   public void switchCamera() {
-    if(cameraStatus = false) {
+    if(!cameraStatus) {
       cameraStatus = true;
       server.setSource(camera2);
     } else {
@@ -81,6 +81,14 @@ public class Telemetry extends Subsystem {
   }
 
   public double getPressure() {
-    return 250 * (pressureSensorReading.getVoltage()/5) - 25;
+    return 250 * (pressureSensor.getVoltage()/5) - 25;
+  }
+
+  public void setBreaksStatus(boolean status) {
+    breaksStatus = status;
+  }
+
+  public boolean getBreaksStatus() {
+    return breaksStatus;
   }
 }

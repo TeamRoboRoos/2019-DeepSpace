@@ -18,28 +18,14 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 public class HatchGrabber extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  public DoubleSolenoid hatchSol1;
-  public DoubleSolenoid hatchSol2;
+  public DoubleSolenoid hatchSolPusher;
+  public DoubleSolenoid hatchSolSlide;
 
   public HatchGrabber() {
-     // Put methods for controlling this subsystem
-     // here. Call these from Commands.
-     hatchSol1 = new DoubleSolenoid(RobotMap.hatchSolChannel1[0], RobotMap.hatchSolChannel1[1]);
-     hatchSol2 = new DoubleSolenoid(RobotMap.hatchSolChannel2[0], RobotMap.hatchSolChannel2[1]);
-  }
-  public void setHatchSol1(boolean extend) {
-    if (extend) {
-      hatchSol1.set(Value.kForward);
-    } else {
-      hatchSol1.set(Value.kReverse);
-    }
-  }
-  public void setHatchSol2(boolean extend) {
-    if (extend) {
-      hatchSol2.set(Value.kForward);
-    } else {
-      hatchSol2.set(Value.kReverse);
-    }
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
+    hatchSolPusher = new DoubleSolenoid(RobotMap.hatchSolPusher[0], RobotMap.hatchSolPusher[1]);
+    hatchSolSlide = new DoubleSolenoid(RobotMap.hatchSolSlide[0], RobotMap.hatchSolSlide[1]);
   }
 
   @Override
@@ -47,7 +33,52 @@ public class HatchGrabber extends Subsystem {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }
+
+  public void setHatchSolPusher(boolean extend) {
+    if (extend) {
+      hatchSolPusher.set(Value.kForward);
+    } else {
+      hatchSolPusher.set(Value.kReverse);
+    }
+  }
+
+  public void toggleHatchSolPusher() {
+    DoubleSolenoid.Value value = Value.kOff;
+    switch (hatchSolPusher.get()) {
+    case kForward:
+      value = DoubleSolenoid.Value.kReverse;
+      break;
+    case kReverse:
+      value = DoubleSolenoid.Value.kForward;
+      break;
+    case kOff:
+      value = DoubleSolenoid.Value.kForward;
+      break;
+    }
+    hatchSolPusher.set(value);
+  }
+
+  public void setHatchSolSlide(boolean extend) {
+    if (extend) {
+      hatchSolSlide.set(Value.kForward);
+    } else {
+      hatchSolSlide.set(Value.kReverse);
+    }
+  }
+
+  public void toggleHatchSolSlide() {
+    DoubleSolenoid.Value value = Value.kOff;
+    switch (hatchSolSlide.get()) {
+    case kForward:
+      value = DoubleSolenoid.Value.kReverse;
+      break;
+    case kReverse:
+      value = DoubleSolenoid.Value.kForward;
+      break;
+    case kOff:
+      value = DoubleSolenoid.Value.kForward;
+      break;
+    }
+    hatchSolSlide.set(value);
+  }
 }
-
-
-

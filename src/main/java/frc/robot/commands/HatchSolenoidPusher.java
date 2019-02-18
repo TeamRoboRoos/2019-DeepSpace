@@ -7,17 +7,15 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class MoveSolenoid extends Command {
+public class HatchSolenoidPusher extends Command {
   private boolean extend;
-  public MoveSolenoid(boolean extend) {
+  public HatchSolenoidPusher(boolean extend) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.m_ballGrabber);
+    requires(Robot.m_hatchGrabber);
     this.extend = extend;
   }
 
@@ -29,7 +27,8 @@ public class MoveSolenoid extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_ballGrabber.setSolenoid(extend);
+    
+    Robot.m_hatchGrabber.setHatchSolSlide(extend);
   }
 
   // Make this return true when this Command no longer needs to run execute()

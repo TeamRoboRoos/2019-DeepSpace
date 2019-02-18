@@ -7,8 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.AnalogInput;
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -27,6 +25,12 @@ public class RobotMap {
   // public static int rangefinderModule = 1;
 
   
+  //Driver Preference Settings
+  public static boolean fieldOrientedDrive = false;
+  public static boolean squaredDriverInputs = true;
+  public static double driveTranslatePower = 0.75;
+  public static double driveRotatePower = 0.50;
+  
   //Joysticks
   //Joystic Ports
   public static int driveStick = 0;
@@ -35,20 +39,27 @@ public class RobotMap {
   public static int driveStickX = 0;
   public static int driveStickY = 1;
   public static int driveStickZ = 2;
+  public static int opAxisArm = 2;
   //Operator Buttons
-  public static int grabButton = 1;
-  public static int liftButton = 1;
-  public static int dropButton = 1;
+  public static int grabInButton = 2;
+  public static int grabOutButton = 3;
+  public static int hatchLiftButton = 4;
+  public static int hatchDropButton = 5;
   public static int armUpButton = 1;
   public static int armDownButton = 1;
-  public static int climbUpButton = 3;
-  public static int climbDownButton = 4;
-  public static int solForwardButton = 1;
-  public static int solReverseButton = 1;
-  public static int autoClimbButton = 1;
+  public static int climbUpButton = 1;
+  public static int climbDownButton = 11;
+  public static int solSlideButton = 7;
+  public static int solPushButton = 1;
+  public static int autoClimbButton = 10;
+  public static int climbDriveTestButton = 1;
 
-  public static int cameraButton = 1;
+  public static int cameraButton = 4;
+  public static int driveStickReverse = 2;
+  public static int driveStickPrecision = 1;
+  public static int driveStickDriveAngleReset = 3;
 
+  //Analog Inputs
   public static int pressureSensor = 0;
 
 
@@ -64,21 +75,23 @@ public class RobotMap {
   public static int rearLeftMotor = 3; //CAN SparkMax
   public static int rearRightMotor = 4; //CAN SparkMax
   //Arm
-  public static int armMotor = 1; //CAN TalonSRX
+  public static int armMotor = 3; //CAN TalonSRX
   //Elevator
-  public static int elevatorMotor = 4; //CAN TalonSRX
+  public static int elevatorMotor = 2; //CAN TalonSRX
   //Climber
-  public static int climbExtensionMotor = 3; //CAN TalonSRX
-  public static int climbGrabberMotor = 1; //CAN VictorSPX
-  public static int climbDriveMotor = 2; //CAN VictorSPX
+  public static int climbExtensionMotor = 1; //CAN TalonSRX
+  public static int climbGrabberMotor = 2; //CAN VictorSPX
+  public static int climbDriveMotor = 1; //CAN VictorSPX
   //Grabber
-  public static int grabberMotor = 1; //PWM Spark
+  public static int grabberMotor1 = 0; //PWM Spark
+  public static int grabberMotor2 = 1; //PWM Spark
+  //-2160 Level 2 rocket position-6444level1
 
 
   //Motor Speeds
   //Climber
-  public static double climbUpSpeed = 0.5;
-  public static double climbDownSpeed = -0.5;
+  public static double climbUpSpeed = 1.0;
+  public static double climbDownSpeed = -1.0;
 
   //Elevator
   public static double elevatorUpSpeen = 0.5;
@@ -86,22 +99,24 @@ public class RobotMap {
 
   //Grabber
   public static double grabInSpeed = 0.5;
-  public static double grabOutSpeed = 0.5;
+  public static double grabOutSpeed = -1.0;
 
 
   //Solennoid Channels
-  public static int[] grabberSolennoidChannel = {0,1};
-  public static int[] hatchSolChannel1 = {0,1};
-  public static int[] hatchSolChannel2 = {0,1};
-  
-  //PID Calibration
-  //Arm
-  public static double kP = 0;
-  public static double kI = 0;
+  public static int[] grabberSolennoidChannel = {3};
+  public static int[] hatchSolPusher = {4,5};
+  public static int[] hatchSolSlide = {0,1};
+
+  //Voltage Saturaiton
+  public static double voltageSaturation = 12.5;
+
+  //Arm PID
+  public static double kP = 0.2;
+  public static double kI = 0.00025;
   public static double kD = 0;
   public static double kF = 0;
-  public static int kIzone = 0;
-  public static int allowableError = 0;
+  public static int kIzone = 5000;
+  public static int allowableError = 75;
 }
 
     

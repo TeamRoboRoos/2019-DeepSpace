@@ -10,13 +10,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class Grab extends Command {
-  private double speed;
-  public Grab(double speed) {
+public class HatchSolenoidSlide extends Command {
+  public HatchSolenoidSlide() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.m_ballGrabber);
-    this.speed = speed;
+    requires(Robot.m_hatchGrabber);
   }
 
   // Called just before this Command runs the first time
@@ -27,25 +25,24 @@ public class Grab extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_ballGrabber.grab(speed);
+
+    Robot.m_hatchGrabber.toggleHatchSolPusher();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_ballGrabber.grab(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }
