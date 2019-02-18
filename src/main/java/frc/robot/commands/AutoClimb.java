@@ -30,10 +30,11 @@ public class AutoClimb extends Command {
   protected void execute() {
     Robot.m_telemetry.getPitch();
 
-    //setPos and getPos to be created by Grady
-    //Robot.m_arm.setPosition(Robot.m_arm.getPosition + Robot.m_telemetry.getPitch());
+    Robot.m_arm.getArmPosition();
+    Robot.m_arm.setArmPositon(Robot.m_arm.getArmPosition() + Robot.m_telemetry.getPitch());
 
   }
+
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
