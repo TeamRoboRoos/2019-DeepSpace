@@ -29,15 +29,12 @@ public class AutoLiftClimber extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-<<<<<<< HEAD:src/main/java/frc/robot/commands/AutoClimb.java
     Robot.m_telemetry.getPitch();
 
     Robot.m_arm.getArmPosition();
     Robot.m_arm.setArmPositon(Robot.m_arm.getArmPosition() + Robot.m_telemetry.getPitch());
-=======
     float roll = Robot.m_telemetry.getRoll();
     roll *= 30.0;
->>>>>>> 0570ea66dd52790b95f2362b80c8119ea3928334:src/main/java/frc/robot/commands/AutoLiftClimber.java
 
     Robot.m_arm.setArmPositon(Robot.m_arm.getArmTargetPosition() + roll);
     Robot.m_climber.controlClimberLift(RobotMap.climbUpSpeed);

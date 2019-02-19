@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.SerialPort;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -24,6 +26,7 @@ public class RobotMap {
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
 
+  public static SerialPort.Port arduinoPort = SerialPort.Port.kMXP;
   
   //Driver Preference Settings
   public static boolean fieldOrientedDrive = false;
