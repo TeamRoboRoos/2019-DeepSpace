@@ -29,10 +29,10 @@ public class AutoLiftClimber extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_telemetry.getPitch();
+    Robot.m_telemetry.getRoll();
 
     Robot.m_arm.getArmPosition();
-    Robot.m_arm.setArmPositon(Robot.m_arm.getArmPosition() + Robot.m_telemetry.getPitch());
+    Robot.m_arm.setArmPositon(Robot.m_arm.getArmPosition() + Robot.m_telemetry.getRoll());
     float roll = Robot.m_telemetry.getRoll();
     roll *= 30.0;
 
