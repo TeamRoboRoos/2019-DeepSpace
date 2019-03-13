@@ -24,6 +24,7 @@ import frc.robot.commands.*;
  */
 public class Robot extends TimedRobot {
   public static Arm m_arm = new Arm();
+  public static Arduino arduino = new Arduino();
   public static BallGrabber m_ballGrabber = new BallGrabber();
   public static Climber m_climber = new Climber();
   public static DriveBase m_driveBase = new DriveBase();

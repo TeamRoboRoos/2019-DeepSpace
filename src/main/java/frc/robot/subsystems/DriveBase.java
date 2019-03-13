@@ -13,7 +13,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,8 +30,6 @@ public class DriveBase extends Subsystem {
   private CANSparkMax frontLeft, frontRight, rearLeft, rearRight;
   private WPI_TalonSRX frontLeftTalon, frontRightTalon, rearLeftTalon, rearRightTalon;
   private MecanumDrive drive;
-
-  private SerialPort arduino = new SerialPort(9600, RobotMap.arduinoPort);
  
   private boolean reversed = false;
   private boolean precision = false;
@@ -74,8 +72,6 @@ public class DriveBase extends Subsystem {
 
   public void drive(double xIn, double yIn, double zIn, boolean squaredInputs) {
     drive(xIn, yIn, zIn, squaredInputs, false);
-
-    System.out.println("$$$$$$  " + arduino.readString());
   }
 
   public void drive(double xIn, double yIn, double zIn, boolean squaredInputs, boolean fieldOriented) {

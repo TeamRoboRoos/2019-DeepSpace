@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.Faults;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
@@ -39,6 +40,7 @@ public class Climber extends Subsystem {
     stiltMotor = new WPI_VictorSPX(RobotMap.climbDriveMotor);
     stiltMotor.configFactoryDefault();
     stiltMotor.setInverted(InvertType.InvertMotorOutput);
+    stiltMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
     grabberMotor = new WPI_VictorSPX(RobotMap.climbGrabberMotor);
     grabberMotor.configFactoryDefault();
@@ -67,6 +69,10 @@ public class Climber extends Subsystem {
   public void runClimbDrive(double speed) {
     stiltMotor.set(ControlMode.PercentOutput, speed * 1.5);
     grabberMotor.set(ControlMode.PercentOutput, speed);
+  }
+
+  public int getDistance() {
+    return stiltMotor.getSelectedSensorPosition();
   }
 
   public boolean getForwardLimitSwitch() {

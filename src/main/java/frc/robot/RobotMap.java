@@ -54,7 +54,8 @@ public class RobotMap {
   public static int climbDownButton = 11;
   public static int solSlideButton = 7;
   public static int solPushButton = 1;
-  public static int autoClimbButton = 10;
+  public static int autoClimbButtonL2 = 10;
+  public static int autoClimbButtonL1 = 12;
   public static int climbDriveTestButton = 1;
 
   public static int cameraButton = 4;
@@ -72,7 +73,7 @@ public class RobotMap {
   //Pneumatic Control Module
   public static int pcm = 0; //CAN
   //Drive Base
-  public static boolean sparkDriveBase = true; //Set to true if using sparks on drive base or false for talons
+  public static boolean sparkDriveBase = false; //Set to true if using sparks on drive base or false for talons
   public static int frontLeftMotor = 1; //CAN SparkMax
   public static int frontRightMotor = 2; //CAN SparkMax
   public static int rearLeftMotor = 3; //CAN SparkMax
@@ -121,7 +122,3 @@ public class RobotMap {
   public static int kIzone = 5000;
   public static int allowableError = 75;
 }
-
-    
-
-

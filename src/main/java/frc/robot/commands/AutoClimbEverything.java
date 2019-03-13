@@ -15,14 +15,18 @@ import frc.robot.RobotMap;
 public class AutoClimbEverything extends Command {
   private int state;
   private long time;
+  private boolean l2;
+  private int posStart;
 
-  public AutoClimbEverything() {
+  public AutoClimbEverything(boolean level2) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.m_climber);
     requires(Robot.m_arm);
     requires(Robot.m_pneumatics);
     requires(Robot.m_driveBase);
+
+    l2 = level2;
   }
 
   // Called just before this Command runs the first time
@@ -31,6 +35,7 @@ public class AutoClimbEverything extends Command {
     state = Robot.m_climber.getAutoClimbState();
     Robot.m_pneumatics.disableCompressor();
     time = System.currentTimeMillis();
+    posStart = Robot.m_climber.getDistance();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -53,12 +58,16 @@ public class AutoClimbEverything extends Command {
       if (Robot.m_climber.getForwardLimitSwitch()) {
         incState();
       }
+      if(!l2 && Robot.m_climber.getDistance() - posStart >= 5000) { //Distance guess, check in Sydney
+        Robot.m_climber.controlClimberLift(0);
+        incState();
+      }
       break;
 
     case 2:
       // Robot.m_arm.setArmPositon(-11100);
       Robot.m_arm.ArmMoveNoFF(-1.0);
-      if (time + 500 <= System.currentTimeMillis() || Robot.m_arm.getArmPosition() <= -10000) {
+      if (checkDelay(500) || Robot.m_arm.getArmPosition() <= -10000) {
         incState();
       }
       break;
@@ -68,7 +77,7 @@ public class AutoClimbEverything extends Command {
       Robot.m_arm.ArmMoveNoFF(-1.0);
       Robot.m_climber.runClimbDrive(0.90);
       Robot.m_driveBase.drive(0, -0.10, 0);
-      if (time + 500 <= System.currentTimeMillis()) {
+      if (checkDelay(500)) {
         incState();
       }
       break;
@@ -77,7 +86,7 @@ public class AutoClimbEverything extends Command {
       Robot.m_arm.setArmPositon(-5000);
       Robot.m_climber.runClimbDrive(0.90);
       Robot.m_driveBase.drive(0, -0.10, 0);
-      if (time + 2000 <= System.currentTimeMillis()) {
+      if (checkDelay(2000)) {
         incState();
       }
       break;
@@ -87,7 +96,7 @@ public class AutoClimbEverything extends Command {
       Robot.m_climber.runClimbDrive(0.0);
       Robot.m_driveBase.drive(0, -0.10, 0);
       Robot.m_climber.controlClimberLift(RobotMap.climbDownSpeed);
-      if (time + 1000 <= System.currentTimeMillis()) {
+      if (checkDelay(1000)) {
         incState();
       }
       break;
@@ -109,6 +118,10 @@ public class AutoClimbEverything extends Command {
     state++;
     Robot.m_climber.setAutoClimbState(state);
     time = System.currentTimeMillis();
+  }
+
+  private boolean checkDelay(int millis)  {
+    return (time + millis <= System.currentTimeMillis());
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -19,7 +19,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.robot.RobotMap;
-import frc.robot.CustomObjects.C_WPI_TalonSRX;
+import frc.robot.customobjects.C_WPI_TalonSRX;
 import frc.robot.commands.TestArm;
 
 /**
