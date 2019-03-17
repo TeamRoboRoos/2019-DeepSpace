@@ -35,19 +35,24 @@ public class AutoClimbEverything extends Command {
     state = Robot.m_climber.getAutoClimbState();
     Robot.m_pneumatics.disableCompressor();
     time = System.currentTimeMillis();
-    posStart = Robot.m_climber.getDistance();
+    if(Robot.m_climber.getAutoClimbState() == 0) {
+      posStart = Robot.m_climber.getDistance();
+    }
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     SmartDashboard.putNumber("ClimbState", state);
+    // double stickPow = Math.abs(Robot.m_oi.getDriveAxis(RobotMap.driveStickY));
+    // if(stickPow <= 0.1) stickPow = 0;
+
     switch (state) {
-    case 0:
+    case 0: //Setup start
       incState(); // incState() records stat time
       break;
 
-    case 1:
+    case 1: //Start climbing, counter tipping with arm
       float roll = Robot.m_telemetry.getRoll();
       roll *= 30.0;
 
@@ -58,54 +63,62 @@ public class AutoClimbEverything extends Command {
       if (Robot.m_climber.getForwardLimitSwitch()) {
         incState();
       }
-      if(!l2 && Robot.m_climber.getDistance() - posStart >= 5000) { //Distance guess, check in Sydney
+      if(!l2 && Robot.m_climber.getDistance() - posStart <= -10700) { //L2 climb end condition
         Robot.m_climber.controlClimberLift(0);
         incState();
       }
       break;
 
-    case 2:
+    case 2: //Set arm down all the way
       // Robot.m_arm.setArmPositon(-11100);
       Robot.m_arm.ArmMoveNoFF(-1.0);
-      if (checkDelay(500) || Robot.m_arm.getArmPosition() <= -10000) {
+      if (checkDelay(500) || Robot.m_arm.getArmPosition() <= -10000) { //Wait for either arm or time
         incState();
       }
       break;
 
-    case 3:
+    case 3: //Hold arm down and drive forward
       // Robot.m_arm.setArmPositon(-11100);
       Robot.m_arm.ArmMoveNoFF(-1.0);
-      Robot.m_climber.runClimbDrive(0.90);
+      Robot.m_climber.runClimbDrive(1.00);
       Robot.m_driveBase.drive(0, -0.10, 0);
-      if (checkDelay(500)) {
+      // Robot.m_climber.runClimbDrive(stickPow*100);
+      // Robot.m_driveBase.drive(0, stickPow/10, 0);
+      if (checkDelay(2000) || Robot.m_oi.getOpButton(RobotMap.autoClimbArmUp)) { //Wait 5s OR wait for button press
         incState();
       }
       break;
 
-    case 4:
-      Robot.m_arm.setArmPositon(-5000);
-      Robot.m_climber.runClimbDrive(0.90);
-      Robot.m_driveBase.drive(0, -0.10, 0);
-      if (checkDelay(2000)) {
-        incState();
-      }
-      break;
-
-    case 5:
+    case 4: //Bring arm partially up, drive forwards
       Robot.m_arm.setArmPositon(-2500);
-      Robot.m_climber.runClimbDrive(0.0);
+      Robot.m_climber.runClimbDrive(1.00);
       Robot.m_driveBase.drive(0, -0.10, 0);
-      Robot.m_climber.controlClimberLift(RobotMap.climbDownSpeed);
-      if (checkDelay(1000)) {
+      // Robot.m_climber.runClimbDrive(stickPow*10);
+      // Robot.m_driveBase.drive(0, stickPow/10, 0);
+      if (checkDelay(1500)) { //Wait 1.5s
         incState();
       }
       break;
 
-    case 6:
+    case 5: //Move arm more up, hold little drive power, lift legs
+      Robot.m_arm.setArmPositon(-2500);
+      Robot.m_climber.runClimbDrive(0.00);
+      Robot.m_driveBase.drive(0, -0.10, 0);
+      // Robot.m_climber.runClimbDrive(stickPow*10);
+      // Robot.m_driveBase.drive(0, stickPow/10, 0);
+      Robot.m_climber.controlClimberLift(RobotMap.climbDownSpeed);
+      if (checkDelay(3500)) { //Wait 3.5s
+        incState();
+      }
+      break;
+
+    case 6: //Stop driving and hold arm previous position
       Robot.m_arm.setArmPositon(-2500);
       Robot.m_climber.controlClimberLift(0);
-      Robot.m_climber.runClimbDrive(0);
+      Robot.m_climber.runClimbDrive(0.00);
       Robot.m_driveBase.drive(0, 0, 0);
+      // Robot.m_climber.runClimbDrive(stickPow*10);
+      // Robot.m_driveBase.drive(0, stickPow/10, 0);
       incState();
       break;
 
@@ -129,6 +142,7 @@ public class AutoClimbEverything extends Command {
   protected boolean isFinished() {
     if (state >= 7) {
       System.out.println("FINISHED");
+      // return true;
       return false;
     }
     return false;
@@ -137,11 +151,16 @@ public class AutoClimbEverything extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    // double stickPow = Math.abs(Robot.m_oi.getDriveAxis(RobotMap.driveStickY));
+    // if(stickPow <= 0.1) stickPow = 0;
+
     Robot.m_pneumatics.eneableCompressor();
     Robot.m_arm.setArmPositon(Robot.m_arm.getArmTargetPosition());
     Robot.m_climber.controlClimberLift(0);
-    Robot.m_climber.runClimbDrive(0);
+    Robot.m_climber.runClimbDrive(0.00);
     Robot.m_driveBase.drive(0, 0, 0);
+    // Robot.m_climber.runClimbDrive(stickPow*10);
+    // Robot.m_driveBase.drive(0, stickPow/10, 0);
   }
 
   // Called when another command which requires one or more of the same

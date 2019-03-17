@@ -42,21 +42,22 @@ public class RobotMap {
   public static int driveStickX = 0;
   public static int driveStickY = 1;
   public static int driveStickZ = 2;
-  public static int opAxisArm = 2;
+  public static int opAxisArm = 3;
   //Operator Buttons
-  public static int grabInButton = 2;
-  public static int grabOutButton = 3;
-  public static int hatchLiftButton = 4;
-  public static int hatchDropButton = 5;
-  public static int armUpButton = 1;
-  public static int armDownButton = 1;
-  public static int climbUpButton = 1;
-  public static int climbDownButton = 11;
-  public static int solSlideButton = 7;
+  public static int grabInButton =10;
+  public static int grabOutButton = 5;
+  public static int hatchLiftButton = 3;
+  public static int hatchDropButton = 4;
+  // public static int armUpButton = 1;
+  // public static int armDownButton = 1;
+  public static int climbUpButton = 8;
+  public static int climbDownButton = 7;
+  public static int solSlideButton = 2;
   public static int solPushButton = 1;
-  public static int autoClimbButtonL2 = 10;
-  public static int autoClimbButtonL1 = 12;
-  public static int climbDriveTestButton = 1;
+  public static int autoClimbButtonL3 = 14;
+  public static int autoClimbButtonL2 = 13;
+  public static int autoClimbArmUp = 12;
+  // public static int climbDriveTestButton = 1;
 
   public static int cameraButton = 4;
   public static int driveStickReverse = 2;
@@ -64,6 +65,7 @@ public class RobotMap {
   public static int driveStickDriveAngleReset = 3;
 
   //Analog Inputs
+
   public static int pressureSensor = 0;
 
 
@@ -73,7 +75,7 @@ public class RobotMap {
   //Pneumatic Control Module
   public static int pcm = 0; //CAN
   //Drive Base
-  public static boolean sparkDriveBase = false; //Set to true if using sparks on drive base or false for talons
+  public static boolean sparkDriveBase = true; //Set to true if using sparks on drive base or false for talons
   public static int frontLeftMotor = 1; //CAN SparkMax
   public static int frontRightMotor = 2; //CAN SparkMax
   public static int rearLeftMotor = 3; //CAN SparkMax
@@ -94,16 +96,16 @@ public class RobotMap {
 
   //Motor Speeds
   //Climber
-  public static double climbUpSpeed = 1.0;
-  public static double climbDownSpeed = -1.0;
+  public static double climbUpSpeed = 1.00;//]\[]
+  public static double climbDownSpeed = -0.50;
 
   //Elevator
   public static double elevatorUpSpeen = 0.5;
   public static double elevatorDownSpeed = -0.1;
 
   //Grabber
-  public static double grabInSpeed = 0.5;
-  public static double grabOutSpeed = -1.0;
+  public static double grabInSpeed = 0.50;
+  public static double grabOutSpeed = -0.50;
 
 
   //Solennoid Channels

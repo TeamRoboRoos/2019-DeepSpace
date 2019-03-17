@@ -60,7 +60,7 @@ public class OI {
   private Button reverseButton;
   private Button resetDriveAngleButton;
   private Button precisionDriveButton;
-  private Button climbDriveTest;
+  // private Button climbDriveTest;
 
   private Trigger breaks;
 
@@ -94,16 +94,16 @@ public class OI {
     liftElevator.whileHeld(new SetElevatorInstant(Elevator.ElevatorState.GOING_UP));
 
 
-    // climb = new JoystickButton(opStick, RobotMap.climbUpButton);
-    // climb.whileHeld(new RobotClimb(RobotMap.climbUpSpeed));
+    climb = new JoystickButton(opStick, RobotMap.climbUpButton);
+    climb.whileHeld(new RobotClimb(RobotMap.climbUpSpeed));
 
     reverseClimb = new JoystickButton(opStick, RobotMap.climbDownButton);
     reverseClimb.whileHeld(new RobotClimb(RobotMap.climbDownSpeed));
 
-    autoClimbL1 = new JoystickButton(opStick, RobotMap.autoClimbButtonL1);
+    autoClimbL1 = new JoystickButton(opStick, RobotMap.autoClimbButtonL2);
     autoClimbL1.whileHeld(new AutoClimbEverything(false));
 
-    autoClimbL2 = new JoystickButton(opStick, RobotMap.autoClimbButtonL2);
+    autoClimbL2 = new JoystickButton(opStick, RobotMap.autoClimbButtonL3);
     autoClimbL2.whileHeld(new AutoClimbEverything(true));
 
     // armUp = new JoystickButton(opStick, RobotMap.armUpButton); 

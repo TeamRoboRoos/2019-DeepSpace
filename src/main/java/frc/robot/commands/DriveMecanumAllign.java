@@ -34,9 +34,9 @@ public class DriveMecanumAllign extends Command {
     double powerZ = -RobotMap.driveRotatePower * Robot.m_oi.getDriveAxis(RobotMap.driveStickZ);
 
     boolean left, mid, right;
-    left = Robot.arduino.getLeft();
-    mid = Robot.arduino.getMid();
-    right = Robot.arduino.getRight();
+    left = Robot.m_arduino.getLeft();
+    mid = Robot.m_arduino.getMid();
+    right = Robot.m_arduino.getRight();
     double fast = 0.50;
     double slow = 0.25;
     if(!left && !mid && !right) {       //O O O  ||Not detected     ||Retain driver control

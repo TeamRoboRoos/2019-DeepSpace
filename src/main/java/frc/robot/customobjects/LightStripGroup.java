@@ -10,7 +10,6 @@ package frc.robot.customobjects;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import edu.wpi.first.wpilibj.SerialPort;
 import frc.robot.customobjects.LightStrip.Animations;
 import frc.robot.customobjects.LightStrip.Strips;
 
@@ -20,9 +19,9 @@ import frc.robot.customobjects.LightStrip.Strips;
 public class LightStripGroup {
     private ArrayList<LightStrip> lightStrips;
 
-    public LightStripGroup(SerialPort arduino, Strips[] strips, Animations defaultAnimation, Color defaultColor) {
+    public LightStripGroup(LightStripController controller, Strips[] strips, Animations defaultAnimation, Color defaultColor) {
         for(Strips strip : strips) {
-            lightStrips.add(new LightStrip(arduino, strip, defaultAnimation, defaultColor));
+            lightStrips.add(new LightStrip(controller, strip, defaultAnimation, defaultColor));
         }
     }
 

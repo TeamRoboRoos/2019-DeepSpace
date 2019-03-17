@@ -34,13 +34,16 @@ public class Climber extends Subsystem {
   public Climber() {
     climbMotor = new WPI_TalonSRX(RobotMap.climbExtensionMotor);
     climbMotor.configFactoryDefault();
-    climbMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-    climbMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    climbMotor.setInverted(InvertType.InvertMotorOutput);
+    climbMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed);
+    climbMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyClosed);
+    climbMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    climbMotor.setSelectedSensorPosition(0);
 
     stiltMotor = new WPI_VictorSPX(RobotMap.climbDriveMotor);
     stiltMotor.configFactoryDefault();
-    stiltMotor.setInverted(InvertType.InvertMotorOutput);
-    stiltMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    stiltMotor.setInverted(InvertType.None);
+    // stiltMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
     grabberMotor = new WPI_VictorSPX(RobotMap.climbGrabberMotor);
     grabberMotor.configFactoryDefault();
@@ -72,7 +75,7 @@ public class Climber extends Subsystem {
   }
 
   public int getDistance() {
-    return stiltMotor.getSelectedSensorPosition();
+    return climbMotor.getSelectedSensorPosition();
   }
 
   public boolean getForwardLimitSwitch() {

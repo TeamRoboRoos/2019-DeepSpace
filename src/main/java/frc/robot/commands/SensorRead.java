@@ -31,6 +31,10 @@ public class SensorRead extends Command {
     SmartDashboard.putNumber("Encoder", Robot.m_arm.getArmPosition());
     SmartDashboard.putNumber("Pitch", Robot.m_telemetry.getRoll());
     SmartDashboard.putBoolean("Breaks", Robot.m_telemetry.getBreaksStatus());
+    //System.out.println(Robot.m_climber.getDistance());
+    // Robot.m_climber.runClimbDrive(1.00);
+    String str = Robot.m_arduino.readString();
+    if(str.length() > 0) System.out.println(str);
   }
 
   // Make this return true when this Command no longer needs to run execute()
