@@ -18,11 +18,34 @@ import frc.robot.customobjects.LightStrip.Strips;
  */
 public class LightStripGroup {
     private ArrayList<LightStrip> lightStrips;
+    private LightStripController controller;
+    private Animations currentAnimation;
+    private Color currentColor;
 
     public LightStripGroup(LightStripController controller, Strips[] strips, Animations defaultAnimation, Color defaultColor) {
+        initGroup(controller, defaultAnimation, defaultColor);
         for(Strips strip : strips) {
-            lightStrips.add(new LightStrip(controller, strip, defaultAnimation, defaultColor));
+           addStrip(strip);
         }
+    }
+
+    public LightStripGroup(LightStripController controller, Animations defaultAnimation, Color defaultColor) {
+        initGroup(controller, defaultAnimation, defaultColor);
+    }
+
+    private void initGroup(LightStripController controller, Animations defaultAnimation, Color defaultColor) {
+        this.controller = controller;
+        currentAnimation = defaultAnimation;
+        currentColor = defaultColor;
+        lightStrips = new ArrayList<LightStrip>();
+    }
+
+    public void addStrip(Strips strip) {
+        lightStrips.add(new LightStrip(controller, strip, currentAnimation, currentColor));
+    }
+
+    public void clearStrips() {
+        lightStrips.clear();
     }
 
     public void setAnimation(Animations animation) {

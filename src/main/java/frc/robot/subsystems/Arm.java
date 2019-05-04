@@ -17,10 +17,16 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.SlotConfiguration;
+import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
+import com.ctre.phoenix.motorcontrol.can.TalonSRXPIDSetConfigUtil;
+import com.ctre.phoenix.motorcontrol.can.TalonSRXPIDSetConfiguration;
 
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.customobjects.C_WPI_TalonSRX;
 import frc.robot.commands.TestArm;
+import frc.robot.configurations.TalonConfigs;
 
 /**
  * Add your docs here.
@@ -40,43 +46,81 @@ public class Arm extends Subsystem {
 
   public Arm() {
     armMotor = new C_WPI_TalonSRX(RobotMap.armMotor);
+
+    TalonSRXPIDSetConfiguration armPIDConfig = new TalonSRXPIDSetConfiguration();
+    armPIDConfig.selectedFeedbackSensor = FeedbackDevice.CTRE_MagEncoder_Relative;
+
+    SlotConfiguration armPIDSlot0 = new SlotConfiguration();
+    armPIDSlot0.closedLoopPeakOutput = 1;
+    // armPIDSlot0.maxIntegralAccumulator = ?
+    armPIDSlot0.kP = RobotMap.kP;
+    armPIDSlot0.kI = RobotMap.kI;
+    armPIDSlot0.kD = RobotMap.kD;
+    armPIDSlot0.kF = RobotMap.kF;
+    armPIDSlot0.integralZone = RobotMap.kIzone;
+    armPIDSlot0.allowableClosedloopError = RobotMap.allowableError;
+
+    TalonSRXConfiguration armConfig = new TalonSRXConfiguration();
+    //Voltage compensation setup
+    armConfig.voltageCompSaturation = RobotMap.voltageSaturation;
+
+    //Limit switch setup
+    armConfig.forwardLimitSwitchSource = LimitSwitchSource.FeedbackConnector;
+    armConfig.reverseLimitSwitchSource = LimitSwitchSource.FeedbackConnector;
+    armConfig.forwardLimitSwitchNormal = LimitSwitchNormal.NormallyOpen;
+    armConfig.reverseLimitSwitchNormal = LimitSwitchNormal.NormallyOpen;
+    armConfig.clearPositionOnLimitF = true;
+
+    armConfig.nominalOutputForward = 0;
+    armConfig.nominalOutputReverse = 0;
+    armConfig.peakOutputForward = 1;
+    armConfig.peakOutputReverse = -1;
+    armConfig.primaryPID = armPIDConfig;
+
     armMotor.configFactoryDefault();
-    armMotor.configVoltageCompSaturation(RobotMap.voltageSaturation);
+    armMotor.configAllSettings(armConfig);
+    // armMotor.configAllSettings(TalonConfigs.Arm.this.base);
     armMotor.enableVoltageCompensation(true);
-    armMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-    armMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
-    armMotor.configClearPositionOnLimitF(true, 10);
+    armMotor.setSensorPhase(false);
+    armMotor.setInverted(InvertType.None);
+
+
+    // armMotor.configVoltageCompSaturation(RobotMap.voltageSaturation);
+    
+    // armMotor.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    // armMotor.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+    // armMotor.configClearPositionOnLimitF(true, 10);
 
     /* Config the sensor used for Primary PID and sensor direction */
-    armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    // armMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
 
     /* Ensure sensor is positive when output is positive */
-    armMotor.setSensorPhase(false);
+    // armMotor.setSensorPhase(false);
 
     /**
      * Config the allowable closed-loop error, Closed-Loop output will be neutral
      * within this range. See Table in Section 17.2.1 for native units per rotation.
      */
-    armMotor.configAllowableClosedloopError(0, RobotMap.allowableError);
+    // armMotor.configAllowableClosedloopError(0, RobotMap.allowableError);
 
     /**
      * Set based on what direction you want forward/positive to be. This does not
      * affect sensor phase.
      */
-    armMotor.setInverted(InvertType.None);
+    // armMotor.setInverted(InvertType.None);
 
     /* Config the peak and nominal outputs, 12V means full */
-    armMotor.configNominalOutputForward(0);
-    armMotor.configNominalOutputReverse(0);
-    armMotor.configPeakOutputForward(1);
-    armMotor.configPeakOutputReverse(-1);
+    // armMotor.configNominalOutputForward(0);
+    // armMotor.configNominalOutputReverse(0);
+    // armMotor.configPeakOutputForward(1);
+    // armMotor.configPeakOutputReverse(-1);
 
     /* Config Position Closed Loop gains in slot0, tsypically kF stays zero. */
-    armMotor.config_kF(0, RobotMap.kF);
-    armMotor.config_kP(0, RobotMap.kP);
-    armMotor.config_kI(0, RobotMap.kI);
-    armMotor.config_kD(0, RobotMap.kD);
-    armMotor.config_IntegralZone(0, RobotMap.kIzone);
+    // armMotor.config_kF(0, RobotMap.kF);
+    // armMotor.config_kP(0, RobotMap.kP);
+    // armMotor.config_kI(0, RobotMap.kI);
+    // armMotor.config_kD(0, RobotMap.kD);
+    // armMotor.config_IntegralZone(0, RobotMap.kIzone);
   }
 
   public void setArmPositon(double pos) {

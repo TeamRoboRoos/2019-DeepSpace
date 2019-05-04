@@ -35,6 +35,7 @@ public class SensorRead extends Command {
     // Robot.m_climber.runClimbDrive(1.00);
     String str = Robot.m_arduino.readString();
     if(str.length() > 0) System.out.println(str);
+    // System.out.println(0b11111111);
   }
 
   // Make this return true when this Command no longer needs to run execute()

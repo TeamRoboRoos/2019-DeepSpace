@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 import frc.robot.commands.*;
 import frc.robot.subsystems.Elevator;
@@ -61,12 +62,18 @@ public class OI {
   private Button resetDriveAngleButton;
   private Button precisionDriveButton;
   // private Button climbDriveTest;
+  private Button pov1, pov2;
 
   private Trigger breaks;
 
   public OI() {
     driveStick = new Joystick(RobotMap.driveStick);
-    opStick = new Joystick(RobotMap.opStick);
+    opStick = driveStick;//new Joystick(RobotMap.opStick);
+
+    pov1 = new POVButton(opStick, 0);
+    pov1.whenPressed(new TestPrint("0"));
+    pov2 = new POVButton(opStick, 180);
+    pov2.whenPressed(new TestPrint("2"));
 
 
     // cameraSwap = new JoystickButton(driveStick, RobotMap.cameraButton);

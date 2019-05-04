@@ -9,26 +9,12 @@ package frc.robot.customobjects;
 
 import java.awt.Color;
 
-import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
  */
 public class LightStrip {
-  // public class LightStripGroup {
-  //   private LightStrip[] lightStrips;
-
-  //   public LightStripGroup(LightStrip[] lightStrips) {
-  //     this.lightStrips = lightStrips;
-  //   }
-
-  //   public void setAnimations(Animations animation) {
-  //     for (int i = 0; i < lightStrips.length; i++) {
-  //       lightStrips[i].setAnimation(animation);
-  //     }
-  //   }
-  // }
-
   public enum Strips {
     FRONT_LEFT  (1),
     FRONT_RIGHT (6),
@@ -104,11 +90,21 @@ public class LightStrip {
     return currentAnimation;
   }
 
+  private byte intToByte(int i) {
+    return (byte) ((byte) i & (byte) 0xFF);
+    // return (i<0) ? 256+i : i;
+  }
+
   private byte[] assembleCommand(Animations animation) {
     return new byte[] {MODE_ANIMATION, (byte)strip.index, (byte)animation.index};
   }
 
   private byte[] assembleCommand(Color color) {
+    for (int i=0; i < 256; i++) {
+      System.out.println("NOTICE: " + (byte)i);
+      SmartDashboard.putRaw("Bytes " + i, new byte[] {(byte)i});
+    }
+    // System.out.println("NOTICE: " + b);
     return new byte[]{MODE_COLOR, (byte)strip.index, (byte)color.getRed(), (byte)color.getGreen(), (byte)color.getBlue()};
   }
 }

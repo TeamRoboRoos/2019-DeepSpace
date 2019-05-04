@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.customobjects.LightStrip;
+import frc.robot.customobjects.LightStripController;
 import frc.robot.customobjects.LightStripGroup;
 import frc.robot.customobjects.LightStrip.Animations;
 import frc.robot.customobjects.LightStrip.Strips;
@@ -28,7 +29,7 @@ public class Arduino extends Subsystem {
   private boolean sensors[] = {false, false, false, false, false, false};
   private boolean fakeData = true;
 
-  private LightStrip top4;
+  private LightStripController controller;
   private LightStripGroup bottom, top;
 
   @Override
@@ -39,19 +40,19 @@ public class Arduino extends Subsystem {
 
   public Arduino() {
     arduino = new SerialPort(9600, RobotMap.arduinoPort);
-    // top4 = new LightStrip(arduino, Strips.TOP_CENTRE, Animations.RAINBOWRANDOM, Color.MAGENTA);
-    // top4 = new LightStrip(arduino, Strips.TOP_CENTRE, Animations.RAINBOWRANDOM, Color.MAGENTA);
-    // top4 = new LightStrip(arduino, Strips.TOP_CENTRE, Animations.RAINBOWRANDOM, Color.MAGENTA);
-    // top4 = new LightStrip(arduino, Strips.TOP_CENTRE, Animations.RAINBOWRANDOM, Color.MAGENTA);
-    // top4 = new LightStrip(arduino, Strips.TOP_CENTRE, Animations.RAINBOWRANDOM, Color.MAGENTA);
-    // top4 = new LightStrip(arduino, Strips.TOP_CENTRE, Animations.RAINBOWRANDOM, Color.MAGENTA);
 
-    // top4 = new LightStrip(arduino, Strips.SIDE_LEFT, Animations.BLINK, Color.MAGENTA);
-    // top4 = new LightStrip(arduino, Strips.FRONT_LEFT, Animations.BLINK, Color.GREEN);
-    // top4 = new LightStrip(arduino, Strips.SIDE_RIGHT, Animations.BLINK, Color.BLUE);
-    // top4 = new LightStrip(arduino, Strips.FRONT_RIGHT, Animations.BLINK, Color.RED);
-    // top4 = new LightStrip(arduino, Strips.TOP_LEFT, Animations.BLINK, Color.YELLOW);
-    // top4 = new LightStrip(arduino, Strips.TOP_RIGHT, Animations.BLINK, Color.CYAN);
+    controller = new LightStripController(arduino);
+
+    top = new LightStripGroup(controller, Animations.RAINBOWRANDOM, Color.MAGENTA);
+    top.addStrip(Strips.TOP_LEFT);
+    // top.addStrip(Strips.TOP_RIGHT);
+    // top.addStrip(Strips.TOP_CENTRE);
+
+    // bottom = new LightStripGroup(controller, Animations.RAINBOWCYCLE, Color.MAGENTA);
+    // bottom.addStrip(Strips.FRONT_LEFT);
+    // bottom.addStrip(Strips.FRONT_RIGHT);
+    // bottom.addStrip(Strips.SIDE_LEFT);
+    // bottom.addStrip(Strips.SIDE_RIGHT);
   }
 
   public String readString() {
