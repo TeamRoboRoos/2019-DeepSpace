@@ -44,6 +44,10 @@ public class LightStripGroup {
         lightStrips.add(new LightStrip(controller, strip, currentAnimation, currentColor));
     }
 
+    public void addStrip(LightStrip strip) {
+        lightStrips.add(strip);
+    }
+
     public void clearStrips() {
         lightStrips.clear();
     }
@@ -54,7 +58,7 @@ public class LightStripGroup {
         }
     }
 
-    public void setAnimation(Color color) {
+    public void setColor(Color color) {
         for(LightStrip lightStrip : lightStrips) {
             lightStrip.setColor(color);
         }

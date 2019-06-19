@@ -32,7 +32,7 @@ public class Elevator extends Subsystem {
   private float maxUpPower = 1.0f;
   private float maxDownPower = -1.0f; 
   private float currentPower = 0;
-  private float maxAcceleration = 0.01f;
+  // private float maxAcceleration = 0.01f;
   public static enum ElevatorState {GOING_UP, GOING_DOWN, UP, DOWN, PANIC} 
   private ElevatorState state;
 
@@ -49,15 +49,20 @@ public class Elevator extends Subsystem {
     elevatorLift.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     elevatorLift.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
     elevatorLift.setInverted(InvertType.InvertMotorOutput);
-    this.state = ElevatorState.PANIC; 
+    this.state = ElevatorState.PANIC;
   }
 
   public void setState(ElevatorState state) {
     this.state = state;
   }
+
+  public ElevatorState getState() {
+    return state;
+  }
   
   public void moveElevator() {
     elevatorLift.setInverted(InvertType.InvertMotorOutput);
+    // System.out.println(state);
     switch (this.state) {
       case GOING_UP:
         // this.calculatePower(this.maxUpPower, this.maxAcceleration);
@@ -81,7 +86,7 @@ public class Elevator extends Subsystem {
         }    
         break;
       case DOWN:
-        if (this.getBottomLimitSwitch()) {
+        if (!this.getBottomLimitSwitch()) {
           this.state = ElevatorState.GOING_DOWN;
         }
         break;
@@ -93,21 +98,21 @@ public class Elevator extends Subsystem {
     elevatorLift.set(ControlMode.PercentOutput, this.currentPower);
   }
 
-  private void calculatePower(float targetPower, float accelerationRate) {
-    if (targetPower < this.currentPower) {
-      this.currentPower -= accelerationRate;
-      if (targetPower > this.currentPower) {
-        this.currentPower = targetPower;
-      }
-    }
+  // private void calculatePower(float targetPower, float accelerationRate) {
+  //   if (targetPower < this.currentPower) {
+  //     this.currentPower -= accelerationRate;
+  //     if (targetPower > this.currentPower) {
+  //       this.currentPower = targetPower;
+  //     }
+  //   }
     
-    if (targetPower > this.currentPower) {
-      this.currentPower += accelerationRate;
-      if (targetPower < this.currentPower) {
-        this.currentPower = targetPower;
-      }
-    }
-  }
+  //   if (targetPower > this.currentPower) {
+  //     this.currentPower += accelerationRate;
+  //     if (targetPower < this.currentPower) {
+  //       this.currentPower = targetPower;
+  //     }
+  //   }
+  // }
 
   private boolean getTopLimitSwitch() {
     Faults faults = new Faults();

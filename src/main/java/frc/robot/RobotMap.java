@@ -96,7 +96,7 @@ public class RobotMap {
 
   //Motor Speeds
   //Climber
-  public static double climbUpSpeed = 1.00;//]\[]
+  public static double climbUpSpeed = 1.00;
   public static double climbDownSpeed = -0.50;
 
   //Elevator

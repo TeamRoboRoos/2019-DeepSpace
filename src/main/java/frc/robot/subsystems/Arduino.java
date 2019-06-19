@@ -13,11 +13,10 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
-import frc.robot.customobjects.LightStrip;
-import frc.robot.customobjects.LightStripController;
-import frc.robot.customobjects.LightStripGroup;
 import frc.robot.customobjects.LightStrip.Animations;
 import frc.robot.customobjects.LightStrip.Strips;
+import frc.robot.customobjects.LightStripController;
+import frc.robot.customobjects.LightStripGroup;
 
 /**
  * Add your docs here.
@@ -30,7 +29,7 @@ public class Arduino extends Subsystem {
   private boolean fakeData = true;
 
   private LightStripController controller;
-  private LightStripGroup bottom, top;
+  public LightStripGroup bottom, top;
 
   @Override
   public void initDefaultCommand() {
@@ -45,14 +44,14 @@ public class Arduino extends Subsystem {
 
     top = new LightStripGroup(controller, Animations.RAINBOWRANDOM, Color.MAGENTA);
     top.addStrip(Strips.TOP_LEFT);
-    // top.addStrip(Strips.TOP_RIGHT);
-    // top.addStrip(Strips.TOP_CENTRE);
+    top.addStrip(Strips.TOP_RIGHT);
+    top.addStrip(Strips.TOP_CENTRE);
 
-    // bottom = new LightStripGroup(controller, Animations.RAINBOWCYCLE, Color.MAGENTA);
-    // bottom.addStrip(Strips.FRONT_LEFT);
-    // bottom.addStrip(Strips.FRONT_RIGHT);
-    // bottom.addStrip(Strips.SIDE_LEFT);
-    // bottom.addStrip(Strips.SIDE_RIGHT);
+    bottom = new LightStripGroup(controller, Animations.RAINBOWCYCLE, Color.YELLOW);
+    bottom.addStrip(Strips.FRONT_LEFT);
+    bottom.addStrip(Strips.FRONT_RIGHT);
+    bottom.addStrip(Strips.SIDE_LEFT);
+    bottom.addStrip(Strips.SIDE_RIGHT);
   }
 
   public String readString() {

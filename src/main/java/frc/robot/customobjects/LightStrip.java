@@ -9,8 +9,6 @@ package frc.robot.customobjects;
 
 import java.awt.Color;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 /**
  * Add your docs here.
  */
@@ -62,24 +60,28 @@ public class LightStrip {
   public LightStrip(LightStripController controller, Strips strip, Animations defaultAnimation, Color defaultColor) {
     this.controller = controller;
     this.strip = strip;
-    this.currentAnimation = defaultAnimation;
-    this.currentColor = defaultColor;
-    setAnimation(currentAnimation);
-    setColor(currentColor);
+    // this.currentAnimation = defaultAnimation;
+    // this.currentColor = defaultColor;
+    setAnimation(defaultAnimation);
+    setColor(defaultColor);
   }
 
   public void setAnimation(Animations animation) {
-    currentAnimation = animation;
-    // arduino.writeString(assembleCommand(currentAnimation));
-    // arduino.write(assembleCommand(animation), 3);
-    controller.addToQueue(assembleCommand(animation));
+    if (currentAnimation != animation) {
+      currentAnimation = animation;
+      // arduino.writeString(assembleCommand(currentAnimation));
+      // arduino.write(assembleCommand(animation), 3);
+      controller.addToQueue(assembleCommand(animation));
+    }
   }
 
   public void setColor(Color color) {
-    currentColor = color;
-    // arduino.writeString(assembleCommand(currentColor));
-    // arduino.write(assembleCommand(color), 5);
-    controller.addToQueue(assembleCommand(color));
+    if (currentColor != color) {
+      currentColor = color;
+      // arduino.writeString(assembleCommand(currentColor));
+      // arduino.write(assembleCommand(color), 5);
+      controller.addToQueue(assembleCommand(color));
+    }
   }
 
   public Color getCurrentColor() {
@@ -90,20 +92,20 @@ public class LightStrip {
     return currentAnimation;
   }
 
-  private byte intToByte(int i) {
-    return (byte) ((byte) i & (byte) 0xFF);
-    // return (i<0) ? 256+i : i;
-  }
+  // private byte intToByte(int i) {
+  //   return (byte) ((byte) i & (byte) 0xFF);
+  //   // return (i<0) ? 256+i : i;
+  // }
 
   private byte[] assembleCommand(Animations animation) {
     return new byte[] {MODE_ANIMATION, (byte)strip.index, (byte)animation.index};
   }
 
   private byte[] assembleCommand(Color color) {
-    for (int i=0; i < 256; i++) {
-      System.out.println("NOTICE: " + (byte)i);
-      SmartDashboard.putRaw("Bytes " + i, new byte[] {(byte)i});
-    }
+    // for (int i=0; i < 256; i++) {
+    //   System.out.println("NOTICE: " + (byte)i);
+    //   SmartDashboard.putRaw("Bytes " + i, new byte[] {(byte)i});
+    // }
     // System.out.println("NOTICE: " + b);
     return new byte[]{MODE_COLOR, (byte)strip.index, (byte)color.getRed(), (byte)color.getGreen(), (byte)color.getBlue()};
   }

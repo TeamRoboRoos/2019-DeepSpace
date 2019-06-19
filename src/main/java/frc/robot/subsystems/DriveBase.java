@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -42,6 +43,9 @@ public class DriveBase extends Subsystem {
       rearRight = new CANSparkMax(RobotMap.rearRightMotor, MotorType.kBrushless);
 
       drive = new MecanumDrive(frontLeft, rearLeft, frontRight, rearRight);
+    } else if (Robot.isSimulation()) {
+      System.out.println("I KNOW I AM NOT REAL");
+      drive = new MecanumDrive(new Spark(2), new Spark(3), new Spark(4), new Spark(5));
     } else {
       frontLeftTalon = new WPI_TalonSRX(10);
       frontRightTalon = new WPI_TalonSRX(11);
@@ -136,6 +140,8 @@ public class DriveBase extends Subsystem {
       frontRight.setIdleMode(mode);
       rearLeft.setIdleMode(mode);
       rearRight.setIdleMode(mode);
+    } else if (Robot.isSimulation()) {
+      System.out.println("There's no breaks on this train!");
     } else {
       NeutralMode mode = set ? NeutralMode.Brake : NeutralMode.Coast;
       frontLeftTalon.setNeutralMode(mode);

@@ -44,7 +44,11 @@ public class LightStripController extends Thread {
 
   }
 
-  public byte[] getNextCommand() {
+  public byte[] peekNextCommand() {
+    return queue.peek();
+  }
+
+  private byte[] getNextCommand() {
     return queue.poll();
   }
 
