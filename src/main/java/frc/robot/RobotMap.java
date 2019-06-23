@@ -50,13 +50,13 @@ public class RobotMap {
   public static int hatchDropButton = 4;
   // public static int armUpButton = 1;
   // public static int armDownButton = 1;
-  public static int climbUpButton = 8;
-  public static int climbDownButton = 7;
+  public static int climbUpButton = 13;
+  public static int climbDownButton = 12;
   public static int solSlideButton = 2;
   public static int solPushButton = 1;
   public static int autoClimbButtonL3 = 14;
-  public static int autoClimbButtonL2 = 13;
-  public static int autoClimbArmUp = 12;
+  public static int autoClimbButtonL2 = 8; //was 13
+  public static int autoClimbArmUp = 7; //was 12
   // public static int climbDriveTestButton = 1;
 
   public static int cameraButton = 4;
