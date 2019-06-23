@@ -41,6 +41,7 @@ public class HoldElevator extends Command {
         case DOWN:
           Robot.m_arduino.bottom.setColor(Color.GREEN);
           Robot.m_arduino.bottom.setAnimation(Animations.SOLIDCOLOR);
+          // Robot.m_arduino.bottom.setAniCol(Animations.SOLIDCOLOR, Color.GREEN);
           break;
         case GOING_DOWN:
           Robot.m_arduino.bottom.setColor(Color.GREEN);
