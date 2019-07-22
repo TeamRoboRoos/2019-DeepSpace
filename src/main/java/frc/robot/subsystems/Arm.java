@@ -75,6 +75,7 @@ public class Arm extends Subsystem {
       armConfig.peakOutputForward = 1;
       armConfig.peakOutputReverse = -1;
       armConfig.primaryPID = armPIDConfig;
+      armConfig.slot0 = armPIDSlot0;
 
       armMotor.configFactoryDefault();
       armMotor.configAllSettings(armConfig);
