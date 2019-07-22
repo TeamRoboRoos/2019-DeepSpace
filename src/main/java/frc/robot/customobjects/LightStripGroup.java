@@ -63,4 +63,9 @@ public class LightStripGroup {
             lightStrip.setColor(color);
         }
     }
+
+    public void setAniCol(Animations animation, Color color) {
+        setAnimation(animation);
+        setColor(color);
+    }
 }

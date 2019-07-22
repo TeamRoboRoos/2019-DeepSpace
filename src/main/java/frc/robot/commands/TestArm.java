@@ -7,10 +7,13 @@
 
 package frc.robot.commands;
 
+import java.awt.Color;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import frc.robot.customobjects.LightStrip.Animations;
 
 public class TestArm extends Command {
   public TestArm() {
@@ -34,6 +37,15 @@ public class TestArm extends Command {
     SmartDashboard.putNumber("ArmTargetIn", tgt);
     Robot.m_arm.setArmPositon(tgt);
     SmartDashboard.putNumber("ArmTargetOut", Robot.m_arm.getArmTargetPosition());
+
+    double val = Robot.m_arm.getArmPosition() - Robot.m_arm.getArmTargetPosition();
+    if (val >= 500) {
+      Robot.m_arduino.top.setAniCol(Animations.CARNIVAL, Color.RED);
+    } else if (val <= 500) {
+      Robot.m_arduino.top.setAniCol(Animations.CARNIVAL, Color.BLUE);
+    } else {
+      Robot.m_arduino.top.setAniCol(Animations.SOLIDCOLOR, Color.GREEN);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
