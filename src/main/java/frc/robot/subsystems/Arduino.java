@@ -13,10 +13,11 @@ import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
-import frc.robot.customobjects.LightStrip;
-import frc.robot.customobjects.LightStripGroup;
 import frc.robot.customobjects.LightStrip.Animations;
 import frc.robot.customobjects.LightStrip.Strips;
+import frc.robot.customobjects.LightStrip;
+import frc.robot.customobjects.LightStripController;
+import frc.robot.customobjects.LightStripGroup;
 
 /**
  * Add your docs here.
@@ -28,8 +29,8 @@ public class Arduino extends Subsystem {
   private boolean sensors[] = {false, false, false, false, false, false};
   private boolean fakeData = true;
 
-  private LightStrip top4;
-  private LightStripGroup bottom, top;
+  private LightStripController controller;
+  public LightStripGroup bottom, top;
 
   @Override
   public void initDefaultCommand() {
@@ -39,19 +40,28 @@ public class Arduino extends Subsystem {
 
   public Arduino() {
     arduino = new SerialPort(9600, RobotMap.arduinoPort);
-    // top4 = new LightStrip(arduino, Strips.TOP_CENTRE, Animations.RAINBOWRANDOM, Color.MAGENTA);
-    // top4 = new LightStrip(arduino, Strips.TOP_CENTRE, Animations.RAINBOWRANDOM, Color.MAGENTA);
-    // top4 = new LightStrip(arduino, Strips.TOP_CENTRE, Animations.RAINBOWRANDOM, Color.MAGENTA);
-    // top4 = new LightStrip(arduino, Strips.TOP_CENTRE, Animations.RAINBOWRANDOM, Color.MAGENTA);
-    // top4 = new LightStrip(arduino, Strips.TOP_CENTRE, Animations.RAINBOWRANDOM, Color.MAGENTA);
-    // top4 = new LightStrip(arduino, Strips.TOP_CENTRE, Animations.RAINBOWRANDOM, Color.MAGENTA);
 
-    // top4 = new LightStrip(arduino, Strips.SIDE_LEFT, Animations.BLINK, Color.MAGENTA);
-    // top4 = new LightStrip(arduino, Strips.FRONT_LEFT, Animations.BLINK, Color.GREEN);
-    // top4 = new LightStrip(arduino, Strips.SIDE_RIGHT, Animations.BLINK, Color.BLUE);
-    // top4 = new LightStrip(arduino, Strips.FRONT_RIGHT, Animations.BLINK, Color.RED);
-    // top4 = new LightStrip(arduino, Strips.TOP_LEFT, Animations.BLINK, Color.YELLOW);
-    // top4 = new LightStrip(arduino, Strips.TOP_RIGHT, Animations.BLINK, Color.CYAN);
+    controller = new LightStripController(arduino);
+
+    top = new LightStripGroup(controller, Animations.FADE, Color.MAGENTA);
+    top.addStrip(Strips.TOP_LEFT);
+    top.addStrip(Strips.TOP_RIGHT);
+    top.addStrip(Strips.TOP_CENTRE);
+
+    bottom = new LightStripGroup(controller, Animations.SOLID_COLOR, Color.YELLOW);
+    bottom.addStrip(Strips.FRONT_LEFT);
+    bottom.addStrip(Strips.FRONT_RIGHT);
+    bottom.addStrip(Strips.SIDE_LEFT);
+    bottom.addStrip(Strips.SIDE_RIGHT);
+
+    // LightStrip s1 = new LightStrip(controller, Strips.FRONT_RIGHT, Animations.FADE, Color.CYAN);
+    // LightStrip s2 = new LightStrip(controller, Strips.SIDE_RIGHT, Animations.FADE, Color.DARK_GRAY);
+    // LightStrip s3 = new LightStrip(controller, Strips.TOP_RIGHT, Animations.FADE, Color.GREEN);
+    // LightStrip s4 = new LightStrip(controller, Strips.TOP_CENTRE, Animations.FADE, Color.PINK);
+    // LightStrip s5 = new LightStrip(controller, Strips.TOP_LEFT, Animations.FADE, Color.ORANGE);
+    // LightStrip s6 = new LightStrip(controller, Strips.FRONT_LEFT, Animations.FADE, Color.MAGENTA);
+    // LightStrip s7 = new LightStrip(controller, Strips.SIDE_LEFT, Animations.FADE, Color.YELLOW);
+
   }
 
   public String readString() {

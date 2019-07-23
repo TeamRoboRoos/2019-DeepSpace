@@ -98,7 +98,7 @@ public class OI {
     climb.whileHeld(new RobotClimb(RobotMap.climbUpSpeed));
 
     reverseClimb = new JoystickButton(opStick, RobotMap.climbDownButton);
-    reverseClimb.whileHeld(new RobotClimb(RobotMap.climbDownSpeed));
+    reverseClimb.whileHeld(new RobotClimb(-RobotMap.climbDownSpeed));
 
     autoClimbL1 = new JoystickButton(opStick, RobotMap.autoClimbButtonL2);
     autoClimbL1.whileHeld(new AutoClimbEverything(false));

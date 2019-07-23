@@ -57,7 +57,8 @@ public class RobotMap {
   public static int autoClimbButtonL3 = 14;
   public static int autoClimbButtonL2 = 13;
   public static int autoClimbArmUp = 12;
-  // public static int climbDriveTestButton = 1;
+
+  //public static int climbDriveTestButton = 15;
 
   public static int cameraButton = 4;
   public static int driveStickReverse = 2;
@@ -97,7 +98,7 @@ public class RobotMap {
   //Motor Speeds
   //Climber
   public static double climbUpSpeed = 1.00;//]\[]
-  public static double climbDownSpeed = -0.50;
+  public static double climbDownSpeed = 1.00;
 
   //Elevator
   public static double elevatorUpSpeen = 0.5;

@@ -16,6 +16,7 @@ public class Grab extends Command {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.m_ballGrabber);
+    requires(Robot.m_climber);
     this.speed = speed;
   }
 
@@ -28,6 +29,10 @@ public class Grab extends Command {
   @Override
   protected void execute() {
     Robot.m_ballGrabber.grab(speed);
+    System.out.println("switchcontrol");
+    if (Robot.m_climber.getForwardLimitSwitch()) {
+        System.out.println("switchon");
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

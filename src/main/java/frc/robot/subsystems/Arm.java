@@ -88,6 +88,15 @@ public class Arm extends Subsystem {
     }
   }
 
+  public void setArmVelocity(double vel) {
+    if (hasZeroed) {
+      armMotor.set(ControlMode.PercentOutput, vel);
+      armStatusDashboard();
+    } else {
+      zeroArm();
+    }
+  }
+
   public void zeroArm() {
     if (!hasZeroed) {
       System.out.println("Error: Arm not zeroed! Zeroing now.");
