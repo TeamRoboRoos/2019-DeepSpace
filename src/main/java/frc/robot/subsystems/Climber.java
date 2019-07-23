@@ -40,6 +40,11 @@ public class Climber extends Subsystem {
     climbMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     climbMotor.setSelectedSensorPosition(0);
 
+    climbMotor.setSensorPhase(true);
+    zeroEncoder();
+    climbMotor.configReverseSoftLimitEnable(true);
+    climbMotor.configReverseSoftLimitThreshold(0);
+
     stiltMotor = new WPI_VictorSPX(RobotMap.climbDriveMotor);
     stiltMotor.configFactoryDefault();
     stiltMotor.setInverted(InvertType.None);
@@ -51,6 +56,7 @@ public class Climber extends Subsystem {
   }
 
   @Override
+
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
@@ -81,7 +87,8 @@ public class Climber extends Subsystem {
   public boolean getForwardLimitSwitch() {
     Faults faults = new Faults();
     climbMotor.getFaults(faults);
-    if(faults.ForwardLimitSwitch) {
+    System.out.println("fwdswitchclimber: " + climbMotor.getSensorCollection().isFwdLimitSwitchClosed());
+    if(climbMotor.getSensorCollection().isFwdLimitSwitchClosed()) {
       return true;
     }
     return false;
@@ -90,10 +97,18 @@ public class Climber extends Subsystem {
   public boolean getReverseLimitSwitch() {
     Faults faults = new Faults();
     climbMotor.getFaults(faults);
-    if(faults.ReverseLimitSwitch) {
+    if(climbMotor.getSensorCollection().isRevLimitSwitchClosed()) {
       return true;
     }
     return false;
+  }
+
+  public void zeroEncoder() {
+    climbMotor.getSensorCollection().setQuadraturePosition(0, 10);
+  }
+
+  public int getEncoder() {
+    return climbMotor.getSensorCollection().getQuadraturePosition();
   }
 
   /**
