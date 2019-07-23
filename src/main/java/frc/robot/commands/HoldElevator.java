@@ -40,7 +40,7 @@ public class HoldElevator extends Command {
       switch (state) {
         case DOWN:
           Robot.m_arduino.bottom.setColor(Color.GREEN);
-          Robot.m_arduino.bottom.setAnimation(Animations.SOLIDCOLOR);
+          Robot.m_arduino.bottom.setAnimation(Animations.SOLID_COLOR);
           // Robot.m_arduino.bottom.setAniCol(Animations.SOLIDCOLOR, Color.GREEN);
           break;
         case GOING_DOWN:
@@ -49,7 +49,7 @@ public class HoldElevator extends Command {
           break;
         case UP:
           Robot.m_arduino.bottom.setColor(Color.BLUE);
-          Robot.m_arduino.bottom.setAnimation(Animations.SOLIDCOLOR);
+          Robot.m_arduino.bottom.setAnimation(Animations.SOLID_COLOR);
           break;
         case GOING_UP:
           Robot.m_arduino.bottom.setColor(Color.BLUE);

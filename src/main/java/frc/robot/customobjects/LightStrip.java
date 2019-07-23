@@ -10,9 +10,12 @@ package frc.robot.customobjects;
 import java.awt.Color;
 
 /**
- * Add your docs here.
+ * Class designed to handle the settings and communication of a light strip
  */
 public class LightStrip {
+  /**
+   * Enum to label the strip indexs with their locations
+   */
   public enum Strips {
     FRONT_LEFT  (1),
     FRONT_RIGHT (6),
@@ -22,91 +25,119 @@ public class LightStrip {
     TOP_CENTRE  (3),
     TOP_RIGHT   (4);
 
-    public int index;
+    public byte index;
     Strips(int index) {
-      this.index = index;
+      this.index = (byte)index;
     }
   }
 
+  /**
+   * Enum to label the animation indexs
+   */
   public enum Animations {
-    BLACKOUT        (0),
-    SOLIDCOLOR      (1),
-    BLINK           (2),
-    FADE            (3),
-    CARNIVAL        (4),
-    RAINBOWCYCLE    (5),
-    RAINBOWRANDOM   (6),
-    RIPPLECENTRE    (7),
-    RIPPLEFORWARDS  (8),
-    RIPPLEREVERSE   (9),
-    ALTERNATINGFADE (10),
-    WAVE            (11);
-
-    public int index;
-
+    BLACKOUT          (0),
+    SOLID_COLOR       (1),
+    BLINK             (2),
+    FADE              (3),
+    CARNIVAL          (4),
+    RAINBOW_CYCLE     (5),
+    RAINBOW_RANDOM    (6),
+    RIPPLE_CENTRE     (7),
+    RIPPLE_FORWARDS   (8),
+    RIPPLE_REVERSE    (9),
+    ALTERNATING_FADE  (10),
+    // WAVE              (11),
+    // BOUNCE            (12),
+    // GROUP_SCROLL      (13),
+    // STILL_RAINBOW     (14),
+    // RAINBOW_FADE      (15),
+    // RAINBOW_GROUP_SCROLL (16),
+    // RAINBOW_ALTERNATING_FADE (17),
+    ;
+    public byte index;
     Animations(int index) {
-      this.index = index;
+      this.index = (byte)index;
     }
   }
 
-  private final int MODE_ANIMATION = 0;
-  private final int MODE_COLOR = 1;
+  private LightStripController controller; //The controller which handles actually sending data to the arduino
+  private Strips strip; //The strip which this class belongs to
+  private Animations currentAnimation; //The current animation that should be running on this strip
+  private byte[] currentColor = {0,0,0}; //The current color this strip should be (overriden by some animations)
 
-  private LightStripController controller;
-  private Strips strip;
-  private Animations currentAnimation;
-  private Color currentColor;
-
+  /**
+   * Creates a light strip and initializes it to its default values
+   * @param controller The light strip contoller object
+   * @param strip The strip this class belongs to
+   * @param defaultAnimation The initial animation that should be run
+   * @param defaultColor The initial color that this strip should be
+   */
   public LightStrip(LightStripController controller, Strips strip, Animations defaultAnimation, Color defaultColor) {
     this.controller = controller;
     this.strip = strip;
-    // this.currentAnimation = defaultAnimation;
-    // this.currentColor = defaultColor;
-    setAnimation(defaultAnimation);
+    currentAnimation = defaultAnimation;
     setColor(defaultColor);
   }
 
+  /**
+   * Sets the animation of the strip
+   * @param animation The animation that should be run
+   */
   public void setAnimation(Animations animation) {
+    //Check animation is different to avoid spam
     if (currentAnimation != animation) {
       currentAnimation = animation;
-      // arduino.writeString(assembleCommand(currentAnimation));
-      // arduino.write(assembleCommand(animation), 3);
-      controller.addToQueue(assembleCommand(animation));
+      update();
     }
   }
 
+  /**
+   * Sets the color of the strip
+   * <p>Note: Some animations override this
+   * @param color The color the strip should be
+   */
   public void setColor(Color color) {
-    if (currentColor != color) {
-      currentColor = color;
-      // arduino.writeString(assembleCommand(currentColor));
-      // arduino.write(assembleCommand(color), 5);
-      controller.addToQueue(assembleCommand(color));
+    setColor(color.getRed(), color.getGreen(), color.getBlue());
+  }
+
+  /**
+   * Sets the color of the strip
+   * <p>Note: Some animations override this
+   * @param r The red value of the color
+   * @param g The green value of the color
+   * @param b The blue value of the color
+   */
+  public void setColor(int r, int g, int b) {
+    byte[] rgb = {(byte)r, (byte)g, (byte)b};
+    //Check color is different to avoid spam
+    if ((currentColor[0] != rgb[0]) || (currentColor[1] != rgb[1]) || (currentColor[2] != rgb[2])) {
+      currentColor[0] = rgb[0];
+      currentColor[1] = rgb[1];
+      currentColor[2] = rgb[2];
+      update();
     }
   }
 
-  public Color getCurrentColor() {
-    return currentColor;
+  /**
+   * Assembles the command and adds it to the controller's queue
+   */
+  private void update() {
+    controller.addToQueue(assembleCommand());
   }
 
+  /**
+   * Gets the currently running animation
+   * @return The current animation
+   */
   public Animations getCurrentAnimation() {
     return currentAnimation;
   }
 
-  // private byte intToByte(int i) {
-  //   return (byte) ((byte) i & (byte) 0xFF);
-  //   // return (i<0) ? 256+i : i;
-  // }
-
-  private byte[] assembleCommand(Animations animation) {
-    return new byte[] {MODE_ANIMATION, (byte)strip.index, (byte)animation.index};
-  }
-
-  private byte[] assembleCommand(Color color) {
-    // for (int i=0; i < 256; i++) {
-    //   System.out.println("NOTICE: " + (byte)i);
-    //   SmartDashboard.putRaw("Bytes " + i, new byte[] {(byte)i});
-    // }
-    // System.out.println("NOTICE: " + b);
-    return new byte[]{MODE_COLOR, (byte)strip.index, (byte)color.getRed(), (byte)color.getGreen(), (byte)color.getBlue()};
+  /**
+   * Assembles the command to be sent to the arduino from the currently stored values
+   * @return The byte array to be sent to the arduino
+   */
+  private byte[] assembleCommand() {
+    return new byte[] {strip.index, currentColor[0], currentColor[1], currentColor[2], currentAnimation.index};
   }
 }

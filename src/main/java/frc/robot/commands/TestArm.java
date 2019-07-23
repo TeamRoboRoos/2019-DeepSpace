@@ -44,7 +44,7 @@ public class TestArm extends Command {
     } else if (val <= 500) {
       Robot.m_arduino.top.setAniCol(Animations.CARNIVAL, Color.BLUE);
     } else {
-      Robot.m_arduino.top.setAniCol(Animations.SOLIDCOLOR, Color.GREEN);
+      Robot.m_arduino.top.setAniCol(Animations.SOLID_COLOR, Color.GREEN);
     }
   }
 

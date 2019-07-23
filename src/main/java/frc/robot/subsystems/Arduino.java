@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.customobjects.LightStrip.Animations;
 import frc.robot.customobjects.LightStrip.Strips;
+import frc.robot.customobjects.LightStrip;
 import frc.robot.customobjects.LightStripController;
 import frc.robot.customobjects.LightStripGroup;
 
@@ -42,16 +43,25 @@ public class Arduino extends Subsystem {
 
     controller = new LightStripController(arduino);
 
-    top = new LightStripGroup(controller, Animations.RAINBOWRANDOM, Color.MAGENTA);
+    top = new LightStripGroup(controller, Animations.FADE, Color.MAGENTA);
     top.addStrip(Strips.TOP_LEFT);
     top.addStrip(Strips.TOP_RIGHT);
     top.addStrip(Strips.TOP_CENTRE);
 
-    bottom = new LightStripGroup(controller, Animations.RAINBOWCYCLE, Color.YELLOW);
+    bottom = new LightStripGroup(controller, Animations.SOLID_COLOR, Color.YELLOW);
     bottom.addStrip(Strips.FRONT_LEFT);
     bottom.addStrip(Strips.FRONT_RIGHT);
     bottom.addStrip(Strips.SIDE_LEFT);
     bottom.addStrip(Strips.SIDE_RIGHT);
+
+    // LightStrip s1 = new LightStrip(controller, Strips.FRONT_RIGHT, Animations.FADE, Color.CYAN);
+    // LightStrip s2 = new LightStrip(controller, Strips.SIDE_RIGHT, Animations.FADE, Color.DARK_GRAY);
+    // LightStrip s3 = new LightStrip(controller, Strips.TOP_RIGHT, Animations.FADE, Color.GREEN);
+    // LightStrip s4 = new LightStrip(controller, Strips.TOP_CENTRE, Animations.FADE, Color.PINK);
+    // LightStrip s5 = new LightStrip(controller, Strips.TOP_LEFT, Animations.FADE, Color.ORANGE);
+    // LightStrip s6 = new LightStrip(controller, Strips.FRONT_LEFT, Animations.FADE, Color.MAGENTA);
+    // LightStrip s7 = new LightStrip(controller, Strips.SIDE_LEFT, Animations.FADE, Color.YELLOW);
+
   }
 
   public String readString() {
